@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('plugin_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Plugin::class);
-            $table->foreignIdFor(Tag::class);
+            $table->foreignIdFor(Plugin::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete();
         });
     }
 
