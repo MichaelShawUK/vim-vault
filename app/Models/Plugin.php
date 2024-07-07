@@ -11,6 +11,10 @@ class Plugin extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'description', 'stars', 'url',
+    ];
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
