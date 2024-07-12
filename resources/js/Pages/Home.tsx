@@ -1,5 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
 import { Tag } from '@/types';
+import Search from '@/Components/Search';
+import Logo from '@/SVG/Logo';
+import Layout from '@/Layouts/Layout';
 
 interface Props {
     tags: Tag[];
@@ -19,7 +22,7 @@ export default function Home({ tags }: Props) {
     });
 
     return (
-        <div>
+        <Layout>
             <Head title="Home" />
 
             <h1 className="text-7xl font-extrabold">
@@ -31,9 +34,8 @@ export default function Home({ tags }: Props) {
             </h1>
 
             <section>
-                <input type="text" />
                 <ul>{tagItems}</ul>
             </section>
-        </div>
+        </Layout>
     );
 }
