@@ -6,8 +6,11 @@ export default function Search() {
 
     useEffect(() => {
         document.addEventListener('keydown', function (event) {
-            if (event.metaKey && event.key === 'k' && inputRef.current) {
-                inputRef.current.focus();
+            const key = event.key;
+            const searchInput = inputRef.current;
+
+            if (event.metaKey && (key === 'k' || key === 'K') && searchInput) {
+                searchInput.focus();
                 event.preventDefault();
             }
         });
