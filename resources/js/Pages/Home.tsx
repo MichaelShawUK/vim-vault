@@ -22,8 +22,13 @@ export default function Home({ tags }: Props) {
         <div>
             <Head title="Home" />
 
-            <h1>Vim Vault</h1>
-            <p>Discover NeoVim plugins</p>
+            <h1 className="text-7xl font-extrabold">
+                Discover&nbsp;
+                <span className="bg-gradient-to-br from-blue-700 to-green-600 inline-block bg-clip-text text-transparent">
+                    NeoVIm&nbsp;
+                </span>
+                Plugins
+            </h1>
 
             <section>
                 <input type="text" />
