@@ -17,7 +17,7 @@ export default function Search() {
     }, []);
 
     return (
-        <div>
+        <div className="col-span-full mx-auto mt-4">
             <div className="relative flex items-center border-0 px-2 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-green-600 focus-within:ring-inset max-w-sm rounded-md dark:ring-gray-600 dark:text-white dark:bg-gray-800 bg-gray-100 text-gray-900">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

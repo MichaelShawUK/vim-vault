@@ -10,15 +10,17 @@ export default function Layout({ children }: PropsWithChildren) {
     return (
         <div
             className={`min-h-screen ${darkTheme ? 'dark' : ''} bg-gray-50 dark:bg-gray-900 dark:text-white`}>
-            <header className="flex justify-between items-center px-3 gap-4 py-2">
-                <Link href="/">
+            <header className="max-w-6xl mx-auto grid grid-cols-2 items-center px-3 gap-4 py-2">
+                <Link
+                    href="/"
+                    className="w-fit">
                     <Logo />
                 </Link>
-                <Search />
                 <ThemeSwitch
                     isDark={darkTheme}
                     toggle={toggleTheme}
                 />
+                <Search />
             </header>
             {children}
         </div>
