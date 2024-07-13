@@ -43,5 +43,14 @@ class DatabaseSeeder extends Seeder
 
         $plugin->tags()->attach([$tag1->id, $tag2->id]);
 
+        Tag::query()->create(['name' => 'lsp']);
+        Tag::query()->create(['name' => 'colorscheme']);
+        Tag::query()->create(['name' => 'git']);
+        Tag::query()->create(['name' => 'keymap']);
+        Tag::query()->create(['name' => 'surround']);
+        Tag::query()->create(['name' => 'treesitter']);
+        Tag::query()->create(['name' => 'snippet']);
+
+
     }
 }

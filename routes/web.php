@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    $tags = Tag::all();
+    $tags = Tag::orderBy('hits', 'desc')->get();
 
     return Inertia::render('Home', [
         'tags' => $tags,
@@ -18,6 +18,12 @@ Route::get('/', function () {
     //     'laravelVersion' => Application::VERSION,
     //     'phpVersion' => PHP_VERSION,
     // ]);
+});
+
+Route::get('/tags/{tag}', function ($tag) {
+    $record = Tag::query()->where('name', $tag)->first();
+    $record->increment('hits');
+    return dd($record);
 });
 
 Route::get('/dashboard', function () {
