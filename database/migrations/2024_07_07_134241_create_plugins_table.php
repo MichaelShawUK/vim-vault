@@ -16,12 +16,16 @@ return new class extends Migration
         Schema::create('plugins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('full_name');
             $table->foreignIdFor(Author::class);
             $table->text('description');
-            $table->integer('stars');
+            $table->integer('stargazers_count');
+            $table->string('html_url');
             $table->string('url');
+            $table->boolean('archived');
             $table->foreignIdFor(Category::class);
-            $table->timestamps();
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
         });
     }
 

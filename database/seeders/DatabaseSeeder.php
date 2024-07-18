@@ -9,6 +9,7 @@ use App\Models\Author;
 use App\Models\Tag;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,14 +25,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        $plugin = new Plugin([
-            'name' => 'conform',
-            'description' => 'Lightweight yet powerful formatter plugin for Neovim',
-            'stars' => 2547,
-            'url' => 'https://github.com/stevearc/conform.nvim',
-        ]);
+        $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/repos/stevearc/conform.nvim')->collect();
+        $filtered = $response->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
 
-        $author = Author::create(['name' => 'stevearc']);
+        $plugin = new Plugin($filtered);
+
+        $owner = collect($response['owner'])->only(['id', 'login', 'avatar_url', 'html_url'])->toArray();
+
+        $author = new Author($owner);
+        $author->save();
+
         $category = Category::create(['name' => 'formatter']);
 
         $plugin->author()->associate($author);

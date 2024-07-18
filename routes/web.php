@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Author;
 use App\Models\Tag;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -32,8 +34,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/test', function () {
-    $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/repos/stevearc/conform.nvim');
-    dd($response);
+    $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/repos/stevearc/conform.nvim')->collect();
+    // $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/users/michaelshawuk');
+    $filtered = collect($response['owner'])->only(['id', 'login', 'html_url', 'avatar_url']);
+    dd(Schema::getColumnListing((new Author())->getTable()));
+    dd($filtered);
 });
 
 Route::get('/hello', function () {
