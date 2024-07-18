@@ -1,9 +1,7 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Tag as TagProps } from '@/types';
 import Layout from '@/Layouts/Layout';
 import Tag from '@/Components/Tag';
-import { Octokit } from 'octokit';
-import { useEffect } from 'react';
 
 interface Props {
     tags: TagProps[];
@@ -16,26 +14,6 @@ export default function Home({ tags }: Props) {
             tag={tag}
         />
     ));
-
-    // GITHUB TOKEN expires 21 July
-    const octokit = new Octokit({
-        auth: import.meta.env.VITE_GITHUB_TOKEN,
-    });
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await octokit.request(
-                'GET /repos/stevearc/conform.nvim',
-            );
-
-            throw 'custom error';
-
-            console.log(response);
-        };
-
-        fetchData().catch((error) => console.log('ERRORRRRR: ', error));
-    }, []);
-    console.log(import.meta.env.VITE_GITHUB_TOKEN);
 
     return (
         <Layout>

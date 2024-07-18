@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\Tag;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,6 +30,11 @@ Route::get('/tags/{tag}', function ($tag) {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/test', function () {
+    $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/repos/stevearc/conform.nvim');
+    dd($response);
+});
 
 Route::get('/hello', function () {
     return Inertia::render('Hello');
