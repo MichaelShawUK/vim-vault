@@ -53,7 +53,5 @@ class DatabaseSeeder extends Seeder
         Tag::query()->create(['name' => 'surround']);
         Tag::query()->create(['name' => 'treesitter']);
         Tag::query()->create(['name' => 'snippet']);
-
-
     }
 }

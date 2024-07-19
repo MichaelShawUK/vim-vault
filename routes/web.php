@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Models\Author;
+use App\Models\Plugin;
 use App\Models\Tag;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Http;
@@ -11,9 +12,11 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     $tags = Tag::orderBy('hits', 'desc')->get();
+    $plugin = Plugin::query()->with(['author', 'tags:id,name'])->find(1);
 
     return Inertia::render('Home', [
         'tags' => $tags,
+        'plugin' => $plugin,
     ]);
     // return Inertia::render('Welcome', [
     //     'canLogin' => Route::has('login'),

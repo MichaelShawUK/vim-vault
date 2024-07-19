@@ -1,13 +1,17 @@
 import { Head } from '@inertiajs/react';
-import { Tag as TagProps } from '@/types';
+import { Tag as TagProps, Plugin as PluginProps } from '@/types';
 import Layout from '@/Layouts/Layout';
 import Tag from '@/Components/Tag';
+import PluginCard from '@/Components/PluginCard';
 
 interface Props {
     tags: TagProps[];
+    plugin: PluginProps;
 }
 
-export default function Home({ tags }: Props) {
+export default function Home({ tags, plugin }: Props) {
+    console.log(plugin);
+
     const tagItems = tags.map((tag) => (
         <Tag
             key={tag.id}
@@ -35,6 +39,10 @@ export default function Home({ tags }: Props) {
                     <ul className="flex gap-6 px-10 flex-wrap justify-center py-4">
                         {tagItems}
                     </ul>
+                </section>
+
+                <section>
+                    <PluginCard plugin={plugin} />
                 </section>
             </main>
         </Layout>

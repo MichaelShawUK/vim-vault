@@ -14,7 +14,9 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
 export interface Author {
   // columns
   id: number
-  name: string
+  login: string
+  avatar_url: string
+  html_url: string
   created_at: string|null
   updated_at: string|null
   // relations
@@ -35,13 +37,16 @@ export interface Plugin {
   // columns
   id: number
   name: string
+  full_name: string
   author_id: number
   description: string
-  stars: number
+  stargazers_count: number
+  html_url: string
   url: string
+  archived: boolean
   category_id: number
-  created_at: string|null
-  updated_at: string|null
+  created_at: string
+  updated_at: string
   // relations
   author: Author
   category: Category
@@ -52,8 +57,10 @@ export interface Tag {
   // columns
   id: number
   name: string
+  hits: number
   created_at: string|null
   updated_at: string|null
   // relations
   plugins: Plugin[]
 }
+
