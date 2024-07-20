@@ -1,18 +1,21 @@
 import Moon from '@/SVG/Moon';
 import Sun from '@/SVG/Sun';
+import { useContext } from 'react';
+import ThemeContext from '@/Context/ThemeContext';
 
 interface Props {
-    isDark: boolean;
     toggle: () => void;
 }
 
-export default function ThemeSwitch({ isDark, toggle }: Props) {
+export default function ThemeSwitch({ toggle }: Props) {
+    const theme = useContext(ThemeContext);
+
     return (
         <button
             onClick={toggle}
             className="ml-auto text-gray-700 dark:text-gray-100 p-1">
-            {isDark && <Sun />}
-            {!isDark && <Moon />}
+            {theme === 'dark' && <Sun />}
+            {theme === 'light' && <Moon />}
         </button>
     );
 }
