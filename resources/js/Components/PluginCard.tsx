@@ -52,11 +52,13 @@ export default function PluginCard({ plugin }: Props) {
             </div>
             <p className="text-xl font-bold p-6">{plugin.description}</p>
             <div className="pt-4 pb-4 pl-6 flex items-center">
-                <ul className="flex">
+                <ul className="flex gap-3">
                     {plugin.tags.map((tag) => (
                         <Tag
                             key={tag.id}
                             tag={tag}
+                            size="sm"
+                            background="bg-gray-300 dark:bg-gray-700"
                         />
                     ))}
                 </ul>
