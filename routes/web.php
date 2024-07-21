@@ -12,11 +12,11 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     $tags = Tag::orderBy('hits', 'desc')->get();
-    $plugin = Plugin::query()->with(['author', 'tags:id,name'])->find(1);
+    $plugins = Plugin::query()->with(['author', 'tags:id,name'])->get();
 
     return Inertia::render('Home', [
         'tags' => $tags,
-        'plugin' => $plugin,
+        'plugins' => $plugins,
     ]);
     // return Inertia::render('Welcome', [
     //     'canLogin' => Route::has('login'),

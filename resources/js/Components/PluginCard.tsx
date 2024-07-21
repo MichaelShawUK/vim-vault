@@ -12,8 +12,8 @@ export default function PluginCard({ plugin }: Props) {
     dayjs.extend(relativeTime);
 
     return (
-        <article className="bg-gray-200 text-gray-900 dark:text-gray-300 dark:bg-gray-800 rounded-lg ring-1 ring-inset ring-gray-300 dark:ring-gray-600">
-            <div className="dark:bg-gray-700 bg-gray-300 rounded-t-lg flex items-center justify-between px-6 py-2">
+        <article className="bg-gray-200 text-gray-900 dark:text-gray-300 dark:bg-gray-800 sm:rounded-lg sm:ring-1 ring-inset ring-gray-300 dark:ring-gray-600">
+            <div className="dark:bg-gray-700 bg-gray-300 sm:rounded-t-lg flex items-center justify-between px-6 py-2">
                 <div className="text-left">
                     <h3 className="text-3xl font-bold">
                         <a
@@ -41,7 +41,7 @@ export default function PluginCard({ plugin }: Props) {
                 </div>
                 <div className="text-right">
                     <p>
-                        <span className="font-bold">Last Updated</span>:{' '}
+                        <span className="font-bold">Last Updated</span>{' '}
                         {dayjs(plugin.updated_at).fromNow()}
                     </p>
                     <p>

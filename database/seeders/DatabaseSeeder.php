@@ -25,33 +25,59 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/repos/stevearc/conform.nvim')->collect();
-        $filtered = $response->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
+        // $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/repos/stevearc/conform.nvim')->collect();
+        // $filtered = $response->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
 
-        $plugin = new Plugin($filtered);
+        // $plugin = new Plugin($filtered);
 
-        $owner = collect($response['owner'])->only(['id', 'login', 'avatar_url', 'html_url'])->toArray();
+        // $owner = collect($response['owner'])->only(['id', 'login', 'avatar_url', 'html_url'])->toArray();
 
-        $author = new Author($owner);
-        $author->save();
+        // $author = new Author($owner);
+        // $author->save();
 
-        $category = Category::create(['name' => 'formatter']);
+        // $category = Category::create(['name' => 'formatter']);
 
-        $plugin->author()->associate($author);
-        $plugin->category()->associate($category);
-        $plugin->save();
+        // $plugin->author()->associate($author);
+        // $plugin->category()->associate($category);
+        // $plugin->save();
 
-        $tag1 = Tag::create(['name' => 'indent']);
-        $tag2 = Tag::create(['name' => 'format']);
+        // $tag1 = Tag::create(['name' => 'indent']);
+        // $tag2 = Tag::create(['name' => 'format']);
 
-        $plugin->tags()->attach([$tag1->id, $tag2->id]);
+        // $plugin->tags()->attach([$tag1->id, $tag2->id]);
 
+        $this->addPlugin('https://api.github.com/repos/stevearc/conform.nvim', ['formatttt', 'indent']);
         Tag::query()->create(['name' => 'lsp']);
+        $this->addPlugin('https://api.github.com/repos/jose-elias-alvarez/null-ls.nvim', ['lsp']);
+
         Tag::query()->create(['name' => 'colorscheme']);
         Tag::query()->create(['name' => 'git']);
         Tag::query()->create(['name' => 'keymap']);
         Tag::query()->create(['name' => 'surround']);
         Tag::query()->create(['name' => 'treesitter']);
         Tag::query()->create(['name' => 'snippet']);
+    }
+
+    public function addPlugin($url, $tags = [])
+    {
+
+        $response = Http::withToken(env('GITHUB_TOKEN'))->get($url)->collect();
+        $filtered = $response->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
+        dump($response);
+
+        $plugin = new Plugin($filtered);
+
+        $owner = collect($response['owner'])->only(['id', 'login', 'avatar_url', 'html_url'])->toArray();
+
+        $author = Author::query()->firstOrCreate($owner);
+        $author->save();
+        $plugin->author()->associate($author);
+        $plugin->save();
+
+        foreach($tags as $tagName) {
+            $tag = Tag::query()->firstOrCreate(['name' => $tagName]);
+
+            $plugin->tags()->attach($tag->id);
+        }
     }
 }

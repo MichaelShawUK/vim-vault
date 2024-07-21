@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('html_url');
             $table->string('url');
             $table->boolean('archived');
-            $table->foreignIdFor(Category::class);
+            // $table->foreignIdFor(Category::class);
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
         });
