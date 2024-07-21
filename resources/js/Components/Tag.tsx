@@ -19,7 +19,8 @@ export default function Tag({
             sizeClasses = 'px-2 py-1 rounded-md';
             break;
         default:
-            sizeClasses = 'py-2 px-4 rounded-lg';
+            sizeClasses =
+                'py-2 px-3 text-sm sm:text-base sm:py-2 sm:px-4 rounded-lg';
     }
 
     return (

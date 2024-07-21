@@ -13,12 +13,12 @@ export default function PluginCard({ plugin }: Props) {
 
     return (
         <article className="bg-gray-200 text-gray-900 dark:text-gray-300 dark:bg-gray-800 sm:rounded-lg sm:ring-1 ring-inset ring-gray-300 dark:ring-gray-600">
-            <div className="dark:bg-gray-700 bg-gray-300 sm:rounded-t-lg flex items-center justify-between px-6 py-2">
-                <div className="text-left">
-                    <h3 className="text-3xl font-bold">
+            <div className="dark:bg-gray-700 bg-gray-300 sm:rounded-t-lg sm:flex sm:items-center sm:justify-between sm:gap-x-3 px-6 py-2">
+                <div className="text-center sm:block sm:text-left">
+                    <h3 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-0">
                         <a
                             href={plugin.html_url}
-                            className="flex items-center gap-1 hover:underline"
+                            className="flex items-center gap-1 justify-center hover:underline"
                             target="_blank">
                             {plugin.name}
                             <NewTab />
@@ -39,20 +39,22 @@ export default function PluginCard({ plugin }: Props) {
                         </a>
                     </h5>
                 </div>
-                <div className="text-right">
-                    <p>
+                <div className="text-center flex justify-around mt-2 sm:mt-0 sm:block sm:text-right">
+                    <p className="flex flex-col sm:block">
                         <span className="font-bold">Last Updated</span>{' '}
                         {dayjs(plugin.updated_at).fromNow()}
                     </p>
-                    <p>
+                    <p className="flex flex-col sm:block">
                         <span className="font-bold">Created</span>{' '}
                         {dayjs(plugin.created_at).fromNow()}
                     </p>
                 </div>
             </div>
-            <p className="text-xl font-bold p-6">{plugin.description}</p>
-            <div className="pt-4 pb-4 pl-6 flex items-center">
-                <ul className="flex gap-3">
+            <p className="text-lg sm:text-xl font-bold p-6 pb-3">
+                {plugin.description}
+            </p>
+            <div className="sm:py-4 sm:flex sm:items-center">
+                <ul className="px-6 flex flex-wrap gap-3 py-3 sm:py-0">
                     {plugin.tags.map((tag) => (
                         <Tag
                             key={tag.id}
@@ -62,13 +64,18 @@ export default function PluginCard({ plugin }: Props) {
                         />
                     ))}
                 </ul>
-                <p className="flex gap-3 bg-gradient-to-br from-blue-700 to-green-600 text-white w-max ml-auto px-8 py-1 rounded-l font-bold">
+                <p className="flex gap-3 bg-gradient-to-br from-blue-700 to-green-600 text-white w-max ml-auto px-8 py-1 rounded-tl sm:rounded-l font-bold">
                     {new Intl.NumberFormat('en-GB', {
                         notation: 'compact',
                     }).format(plugin.stargazers_count)}{' '}
                     <Star />
                 </p>
             </div>
+            {!!plugin.archived && (
+                <p className="bg-[#ed8a19] text-black font-bold rounded-b-lg">
+                    Archived
+                </p>
+            )}
         </article>
     );
 }

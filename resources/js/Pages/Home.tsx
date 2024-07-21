@@ -25,7 +25,7 @@ export default function Home({ tags, plugins }: Props) {
 
             <main className="max-w-4xl mx-auto text-center sm:px-4 selection:bg-yellow-400 selection:text-black">
                 <div className="px-4">
-                    <h1 className="text-7xl font-extrabold mt-20">
+                    <h1 className="text-6xl sm:text-7xl font-extrabold mt-20">
                         Discover&nbsp;
                         <span className="bg-gradient-to-br from-blue-700 to-green-600 inline-block bg-clip-text text-transparent">
                             NeoVIm&nbsp;
@@ -33,11 +33,11 @@ export default function Home({ tags, plugins }: Props) {
                         Plugins
                     </h1>
 
-                    <section className="my-20">
-                        <h3 className="uppercase font-bold text-xl tracking-[0.4em] mb-4">
+                    <section className="my-14 sm:my-20">
+                        <h3 className="uppercase font-bold text-lg sm:text-xl tracking-[0.4em] mb-4">
                             Popular Tags
                         </h3>
-                        <ul className="flex gap-6 px-10 flex-wrap justify-center py-4">
+                        <ul className="flex gap-x-3 gap-y-5 px-2 sm:gap-6 sm:px-10 flex-wrap justify-center py-4">
                             {tagItems}
                         </ul>
                     </section>
@@ -51,6 +51,7 @@ export default function Home({ tags, plugins }: Props) {
                         />
                     ))}
                 </section>
+                <p className="mt-10">PLACEHOLDER</p>
             </main>
         </Layout>
     );
