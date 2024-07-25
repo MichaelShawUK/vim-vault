@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
         $this->addPlugin('https://api.github.com/repos/stevearc/conform.nvim', ['formatttt', 'indent']);
         Tag::query()->create(['name' => 'lsp']);
         $this->addPlugin('https://api.github.com/repos/jose-elias-alvarez/null-ls.nvim', ['lsp']);
+        $this->addPlugin('https://api.github.com/repos/stevearc/oil.nvim', ['file management']);
 
         Tag::query()->create(['name' => 'colorscheme']);
         Tag::query()->create(['name' => 'git']);

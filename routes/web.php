@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Author;
 use App\Models\Plugin;
 use App\Models\Tag;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,11 @@ Route::get('/tags/{tag}', function ($tag) {
     $record = Tag::query()->where('name', $tag)->first();
     $record->increment('hits');
     return dd($record);
+});
+
+Route::get('/author/{author}', function ($author) {
+    $owner = Author::query()->with(['plugins', 'plugins.tags'])->where('login', $author)->first();
+    return Inertia::render('Author', ['owner' => $owner]);
 });
 
 Route::get('/dashboard', function () {
