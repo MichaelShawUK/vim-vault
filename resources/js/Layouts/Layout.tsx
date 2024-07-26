@@ -13,8 +13,8 @@ export default function Layout({ children }: PropsWithChildren) {
     return (
         <ThemeContext.Provider value={theme}>
             <div
-                className={`min-h-screen ${theme} transition-colors duration-500 bg-gray-50 dark:bg-gray-900 dark:text-white`}>
-                <header className="max-w-6xl mx-auto grid grid-cols-2 items-center px-3 gap-4 py-2">
+                className={`min-h-screen ${theme} transition-colors duration-500 bg-gray-50 dark:bg-gray-900 dark:text-white selection:bg-yellow-400 selection:text-black`}>
+                <header className="max-w-6xl mx-auto grid grid-cols-2 items-center px-3 gap-4 pt-2 mb-14 sm:mb-20">
                     <Link
                         href="/"
                         className="w-fit">
@@ -23,7 +23,10 @@ export default function Layout({ children }: PropsWithChildren) {
                     <ThemeSwitch toggle={toggleTheme} />
                     <Search />
                 </header>
-                {children}
+
+                <main className="max-w-4xl mx-auto text-center sm:px-4 ">
+                    {children}
+                </main>
             </div>
         </ThemeContext.Provider>
     );

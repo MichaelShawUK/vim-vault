@@ -4,7 +4,6 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Author;
 use App\Models\Plugin;
 use App\Models\Tag;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
