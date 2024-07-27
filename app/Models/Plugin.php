@@ -12,8 +12,10 @@ class Plugin extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
-        'name', 'description', 'stars', 'url',
+        'name', 'description', 'stargazers_count', 'url',
     ];
 
     public function author(): BelongsTo
