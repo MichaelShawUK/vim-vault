@@ -18,7 +18,7 @@ export default function Author({ owner }: Props) {
                     width={30}
                     className="rounded"
                 />
-                <h2 className="sm:text-xl font-bold sm:mr-auto">
+                <h2 className="sm:text-xl font-bold sm:mr-auto text-gray-900 dark:text-gray-300">
                     {owner.login} plugins
                 </h2>
             </div>

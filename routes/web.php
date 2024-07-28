@@ -27,9 +27,10 @@ Route::get('/', function () {
 });
 
 Route::get('/tags/{tag}', function ($tag) {
-    $record = Tag::query()->where('name', $tag)->first();
+    $record = Tag::query()->with(['plugins', 'plugins.author', 'plugins.tags'])->where('name', $tag)->first();
     $record->increment('hits');
-    return dd($record);
+    $plugins = $record->plugins;
+    return Inertia::render('TagQuery', ['tag' => $tag, 'plugins' => $plugins]);
 });
 
 Route::get('/author/{author}', function ($author) {
