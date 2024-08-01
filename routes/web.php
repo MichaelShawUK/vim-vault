@@ -38,6 +38,10 @@ Route::get('/author/{author}', function ($author) {
     return Inertia::render('Author', ['owner' => $owner]);
 });
 
+Route::get('/plugin/new', function () {
+    return Inertia::render('PluginCreate');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
