@@ -39,7 +39,8 @@ Route::get('/author/{author}', function ($author) {
 });
 
 Route::get('/plugin/new', function () {
-    return Inertia::render('PluginCreate');
+    $tags = Tag::query()->orderBy('name')->get();
+    return Inertia::render('PluginCreate', ['tags' => $tags]);
 });
 
 Route::get('/dashboard', function () {
