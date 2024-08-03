@@ -2,13 +2,12 @@ import Search from '@/Components/Search';
 import ThemeSwitch from '@/Components/ThemeSwitch';
 import Logo from '@/SVG/Logo';
 import { Link } from '@inertiajs/react';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import ThemeContext from '@/Context/ThemeContext';
+import useTheme from '@/hooks/useTheme';
 
 export default function Layout({ children }: PropsWithChildren) {
-    const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-    const toggleTheme = () =>
-        setTheme((previous) => (previous === 'dark' ? 'light' : 'dark'));
+    const { theme, toggleTheme } = useTheme();
 
     return (
         <ThemeContext.Provider value={theme}>

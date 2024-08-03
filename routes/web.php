@@ -38,7 +38,7 @@ Route::get('/author/{author}', function ($author) {
     return Inertia::render('Author', ['owner' => $owner]);
 });
 
-Route::get('/plugin/new', function () {
+Route::get('/plugin/add', function () {
     $tags = Tag::query()->orderBy('name')->get();
     return Inertia::render('PluginCreate', ['tags' => $tags]);
 });
