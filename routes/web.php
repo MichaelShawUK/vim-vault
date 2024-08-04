@@ -12,7 +12,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     $tags = Tag::orderBy('hits', 'desc')->get();
-    $plugins = Plugin::query()->with(['author', 'tags:id,name'])->get();
+    $plugins = Plugin::query()->with(['author', 'tags:id,name'])->orderBy('stargazers_count', 'desc')->get();
 
     return Inertia::render('Home', [
         'tags' => $tags,

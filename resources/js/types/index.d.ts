@@ -64,3 +64,4 @@ export interface Tag {
   plugins: Plugin[]
 }
 
+export type SortCategories = "Stars" | "Name" | "Owner" | "Updated" | "Created";
