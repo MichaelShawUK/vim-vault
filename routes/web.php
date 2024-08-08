@@ -5,6 +5,7 @@ use App\Models\Author;
 use App\Models\Plugin;
 use App\Models\Tag;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -57,6 +58,12 @@ Route::get('/test', function () {
 
 Route::get('/hello', function () {
     return Inertia::render('Hello');
+});
+
+Route::post('/search', function (Request $request) {
+    $query = $request->input('q');
+    $plugins = Plugin::query()->with('author', 'tags')->where('name', 'LIKE', "%$query%")->get();
+    return Inertia::render('TagQuery', ['tag' => 'Search Results', 'plugins' => $plugins]);
 });
 
 Route::middleware('auth')->group(function () {

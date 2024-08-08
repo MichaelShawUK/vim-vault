@@ -35,7 +35,7 @@ export default function Sorter({
             <div className="relative text-right">
                 <div className="inline-flex divide-x divide-gray-300 dark:divide-gray-800 rounded-md shadow-sm">
                     <button
-                        className="inline-flex items-center gap-x-1.5 rounded-l-md bg-gradient-to-r hover:bg-gradient-to-br from-blue-700 to-green-600 hover:bg-red-500 px-3 py-2 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-50"
+                        className="focus:z-10 inline-flex items-center gap-x-1.5 rounded-l-md bg-gradient-to-r hover:bg-gradient-to-br from-blue-700 to-green-600 hover:bg-red-500 px-3 py-2 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-offset-2 focus:ring-offset-gray-50"
                         onClick={onToggle}>
                         <ArrowsUpDownIcon
                             aria-hidden="true"

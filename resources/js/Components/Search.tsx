@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import { router } from '@inertiajs/react';
 
 export default function Search() {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -16,8 +17,15 @@ export default function Search() {
         });
     }, []);
 
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault();
+        router.post('/search', { q: query });
+    }
+
     return (
-        <div className="col-span-full mx-auto mt-4">
+        <form
+            className="col-span-full mx-auto mt-4"
+            onSubmit={handleSubmit}>
             <div className="relative flex items-center border-0 px-2 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-green-600 focus-within:ring-inset max-w-sm rounded-md dark:ring-gray-600 dark:text-white dark:bg-gray-800 bg-gray-100 text-gray-900">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -31,8 +39,8 @@ export default function Search() {
                     />
                 </svg>
                 <input
-                    id="search"
-                    name="search"
+                    id="q"
+                    name="q"
                     type="text"
                     ref={inputRef}
                     value={query}
@@ -45,6 +53,6 @@ export default function Search() {
                     </kbd>
                 </div>
             </div>
-        </div>
+        </form>
     );
 }
