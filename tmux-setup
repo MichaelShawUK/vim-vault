@@ -1,0 +1,8 @@
+#! /bin/bash
+
+tmux new-session -c ~/repos/vim-vault/ -n server -s webdev 'systemctl stop apache2 mysql && ./vendor/bin/sail up'
+tmux new-window -a -t 'webdev:server' -n nvim -c ~/repos/vim-vault/ 'nvim'
+tmux new-window -a -t 'webdev:nvim' -n tinker -c ~/repos/vim-vault/ './vendor/bin/sail artisan tinker'
+tmux split-window -t 'webdev:server' -c ~/repos/vim-vault/ './vendor/bin/sail npm run dev'
+tmux new-window -a -t 'webdev:tinker' -c ~/repos/vim-vault/
+tmux select-window -t 'webdev:nvim'
