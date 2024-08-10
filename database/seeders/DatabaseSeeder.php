@@ -7,6 +7,7 @@ use App\Models\Plugin;
 use App\Models\User;
 use App\Models\Author;
 use App\Models\Tag;
+use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -65,6 +66,9 @@ class DatabaseSeeder extends Seeder
         $response = Http::withToken(env('GITHUB_TOKEN'))->get($url)->collect();
         $filtered = $response->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
         dump($response);
+
+        $filtered['created_at'] = Carbon::parse($filtered['created_at'])->toDateTimeString();
+        $filtered['updated_at'] = Carbon::parse($filtered['updated_at'])->toDateTimeString();
 
         $plugin = new Plugin($filtered);
 

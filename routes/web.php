@@ -4,12 +4,15 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Author;
 use App\Models\Plugin;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     $tags = Tag::orderBy('hits', 'desc')->get();
@@ -64,6 +67,30 @@ Route::post('/search', function (Request $request) {
     $query = $request->input('q');
     $plugins = Plugin::query()->with('author', 'tags')->where('name', 'LIKE', "%$query%")->get();
     return Inertia::render('TagQuery', ['tag' => 'Search Results', 'plugins' => $plugins]);
+});
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+
+Route::get('/auth/callback', function () {
+    $githubUser = Socialite::driver('github')->user();
+
+    $user = User::query()->updateOrCreate([
+            'github_id' => $githubUser->getId(),
+        ],
+        [
+            'name' => $githubUser->getName(),
+            'nickname' => $githubUser->getNickname(),
+            'avatar_url' => $githubUser->getAvatar(),
+            'email' => $githubUser->getEmail(),
+            'github_token' => $githubUser->token,
+            'github_refresh_token' => $githubUser->refreshToken,
+        ]);
+
+    Auth::login($user, true);
+
+    return redirect('dashboard');
 });
 
 Route::middleware('auth')->group(function () {
