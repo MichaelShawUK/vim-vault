@@ -1,12 +1,12 @@
 import { Author as AuthorProps } from '@/types';
 import Layout from '@/Layouts/Layout';
-import PluginCard from '@/Components/PluginCard';
 import PluginCardSection from '@/Components/PluginCardSection';
 
 interface Props {
     owner: AuthorProps;
 }
 export default function Author({ owner }: Props) {
+    owner.plugins.forEach((plugin) => (plugin.author = owner));
     console.log(owner);
 
     return (
@@ -22,17 +22,7 @@ export default function Author({ owner }: Props) {
                     {owner.login} plugins
                 </h2>
             </div>
-            <PluginCardSection>
-                {owner.plugins.map((plugin) => {
-                    plugin.author = owner;
-                    return (
-                        <PluginCard
-                            key={plugin.id}
-                            plugin={plugin}
-                        />
-                    );
-                })}
-            </PluginCardSection>
+            <PluginCardSection plugins={owner.plugins} />
         </Layout>
     );
 }

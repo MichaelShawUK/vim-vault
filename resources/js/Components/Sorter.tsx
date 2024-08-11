@@ -15,14 +15,20 @@ import {
 import { SortCategories } from '@/types';
 
 interface Props {
-    categories: SortCategories[];
     selected: SortCategories;
     onCategoryChange: (category: SortCategories) => void;
     onToggle: () => void;
 }
 
+const categories: SortCategories[] = [
+    'Stars',
+    'Name',
+    'Owner',
+    'Updated',
+    'Created',
+];
+
 export default function Sorter({
-    categories,
     selected,
     onCategoryChange,
     onToggle,
@@ -54,7 +60,7 @@ export default function Sorter({
 
                 <ListboxOptions
                     transition
-                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-200 dark:divide-gray-600 overflow-hidden rounded-md bg-white dark:bg-gray-900 dark:shadow-gray-600 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in">
+                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-200 dark:divide-gray-600 overflow-hidden rounded-md bg-white dark:bg-gray-900 dark:shadow-gray-600 shadow-lg ring-1 ring-green-600 ring-opacity-30 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in">
                     {categories.map((option) => (
                         <ListboxOption
                             value={option}
