@@ -10,7 +10,7 @@ export default function Author({ owner }: Props) {
     console.log(owner);
 
     return (
-        <Layout>
+        <Layout title={`${owner.login} plugins`}>
             <div className="flex items-center justify-center sm:justify-left gap-3 mb-10">
                 <img
                     src={owner.avatar_url}

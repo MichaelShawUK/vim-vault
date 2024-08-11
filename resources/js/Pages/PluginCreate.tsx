@@ -21,7 +21,7 @@ export default function PluginCreate({ tags }: Props) {
     console.log(selectedTags);
 
     return (
-        <Layout>
+        <Layout title="New Plugin">
             <div className="space-y-10 ">
                 <div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-md px-3 pb-1.5 pt-2.5 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 max-w-md focus-within:ring-2 focus-within:ring-green-600">
                     <label

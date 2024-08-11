@@ -10,7 +10,7 @@ interface Props {
 export default function TagQuery({ tag, plugins }: Props) {
     console.log(plugins[0]);
     return (
-        <Layout>
+        <Layout title={`${tag} plugins`}>
             <h2 className="font-bold sm:text-xl text-left mb-10 text-gray-900 dark:text-gray-300">
                 {tag} plugins
             </h2>
