@@ -5,6 +5,7 @@ import { Link, Head } from '@inertiajs/react';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import ThemeContext from '@/Context/ThemeContext';
 import useTheme from '@/hooks/useTheme';
+import HeaderActions from '@/Components/HeaderActions';
 
 interface Props {
     title?: string;
@@ -18,13 +19,16 @@ export default function Layout({ children, title }: PropsWithChildren<Props>) {
             <div
                 className={`min-h-screen ${theme} transition-colors duration-500 bg-gray-50 dark:bg-gray-900 dark:text-white selection:bg-yellow-400 selection:text-black`}>
                 <Head title={title} />
-                <header className="max-w-6xl mx-auto grid grid-cols-2 items-center px-3 gap-4 pt-2 mb-14 sm:mb-20">
+                <header className="max-w-6xl mx-auto grid grid-cols-2 items-center px-3 gap-4 pt-7 mb-14 sm:mb-20">
                     <Link
                         href="/"
                         className="w-fit">
                         <Logo />
                     </Link>
-                    <ThemeSwitch toggle={toggleTheme} />
+                    <div className="flex items-center gap-x-4 divide-gray-200 dark:divide-gray-700 divide-x-2">
+                        <ThemeSwitch toggle={toggleTheme} />
+                        <HeaderActions />
+                    </div>
                     <Search />
                 </header>
 
