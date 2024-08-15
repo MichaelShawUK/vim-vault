@@ -22,9 +22,14 @@ export default function Search() {
         router.post('/search', { q: query });
     }
 
+    function focusInput() {
+        if (inputRef.current) inputRef.current.focus();
+    }
+
     return (
         <form
             className="col-span-full mx-auto mt-4"
+            onClick={focusInput}
             onSubmit={handleSubmit}>
             <div className="relative flex items-center border-0 px-2 shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-green-600 focus-within:ring-inset max-w-sm rounded-md dark:ring-gray-600 dark:text-white dark:bg-gray-800 bg-gray-100 text-gray-900">
                 <svg
