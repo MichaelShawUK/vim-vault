@@ -3,13 +3,13 @@ import { Tag as TagProps, Plugin as PluginProps } from '@/types';
 import Layout from '@/Layouts/Layout';
 import Tag from '@/Components/Tag';
 import PluginCardSection from '@/Components/PluginCardSection';
+import { PageProps } from '@/types';
 
-interface Props {
-    tags: TagProps[];
-    plugins: PluginProps[];
-}
-
-export default function Home({ tags, plugins }: Props) {
+export default function Home({
+    auth,
+    tags,
+    plugins,
+}: PageProps<{ tags: TagProps[]; plugins: PluginProps[] }>) {
     const tagItems = tags.map((tag) => (
         <Tag
             key={tag.id}
@@ -18,9 +18,9 @@ export default function Home({ tags, plugins }: Props) {
     ));
 
     return (
-        <Layout>
-            <Head title="Home" />
-
+        <Layout
+            title="Home"
+            user={auth.user}>
             <div className="px-4">
                 <h1 className="text-6xl sm:text-7xl font-extrabold mt-20">
                     Discover&nbsp;

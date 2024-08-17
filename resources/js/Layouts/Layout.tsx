@@ -2,16 +2,22 @@ import Search from '@/Components/Search';
 import ThemeSwitch from '@/Components/ThemeSwitch';
 import Logo from '@/SVG/Logo';
 import { Link, Head } from '@inertiajs/react';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren } from 'react';
 import ThemeContext from '@/Context/ThemeContext';
 import useTheme from '@/hooks/useTheme';
 import HeaderActions from '@/Components/HeaderActions';
+import { User } from '@/types';
 
 interface Props {
     title?: string;
+    user: User;
 }
 
-export default function Layout({ children, title }: PropsWithChildren<Props>) {
+export default function Layout({
+    children,
+    title,
+    user,
+}: PropsWithChildren<Props>) {
     const { theme, toggleTheme } = useTheme();
 
     return (
@@ -27,7 +33,7 @@ export default function Layout({ children, title }: PropsWithChildren<Props>) {
                     </Link>
                     <div className="flex items-center gap-x-4 divide-gray-200 dark:divide-gray-700 divide-x-2">
                         <ThemeSwitch toggle={toggleTheme} />
-                        <HeaderActions />
+                        <HeaderActions user={user} />
                     </div>
                     <Search />
                 </header>
