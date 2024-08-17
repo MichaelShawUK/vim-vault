@@ -32,7 +32,7 @@ export default function PluginCardSection({ plugins, heading }: Props) {
                 } else if (category === 'Updated') {
                     return Date.parse(b.updated_at) - Date.parse(a.updated_at);
                 } else if (category === 'Created') {
-                    return Date.parse(b.updated_at) - Date.parse(a.updated_at);
+                    return Date.parse(b.created_at) - Date.parse(a.created_at);
                 } else return 0;
             }),
         );

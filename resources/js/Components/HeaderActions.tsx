@@ -6,11 +6,11 @@ export default function HeaderActions() {
                 className="hover:text-gray-500 dark:hover:text-gray-400">
                 Log In
             </a>
-            <a
-                href="/register"
-                className="bg-gradient-to-br from-blue-700 to-green-600 text-white px-4 py-3 rounded-lg hover:from-indigo-600 hover:to-indigo-600">
-                Sign Up
-            </a>
+            {/* <a */}
+            {/*     href="/register" */}
+            {/*     className="bg-gradient-to-br from-blue-700 to-green-600 text-white px-4 py-3 rounded-lg hover:from-indigo-600 hover:to-indigo-600"> */}
+            {/*     Sign Up */}
+            {/* </a> */}
         </div>
     );
 }

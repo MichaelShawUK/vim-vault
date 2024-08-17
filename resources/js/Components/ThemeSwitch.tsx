@@ -13,7 +13,7 @@ export default function ThemeSwitch({ toggle }: Props) {
     return (
         <button
             onClick={toggle}
-            className="ml-auto text-gray-700 dark:text-gray-100 p-1">
+            className="ml-auto text-gray-700 hover:text-gray-500 dark:text-gray-100 hover:dark:text-gray-400 p-1">
             {theme === 'dark' && <Sun />}
             {theme === 'light' && <Moon />}
         </button>

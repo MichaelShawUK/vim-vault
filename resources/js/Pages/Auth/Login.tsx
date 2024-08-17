@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import GithubIcon from '@/SVG/GithubIcon';
 
 export default function Login({
     status,
@@ -42,6 +43,17 @@ export default function Login({
                 </div>
             )}
 
+            <a
+                href="/auth/redirect"
+                className="mt-3 bg-indigo-600 hover:bg-indigo-500 text-white w-full block py-2 rounded-lg text-center font-bold">
+                <div className="flex justify-center items-center gap-2">
+                    <GithubIcon />
+                    <span>Login with GitHub</span>
+                </div>
+            </a>
+
+            <p className="my-4 text-center dark:text-gray-300">or</p>
+
             <form onSubmit={submit}>
                 <div>
                     <InputLabel
@@ -56,7 +68,7 @@ export default function Login({
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
-                        isFocused={true}
+                        isFocused={false}
                         onChange={(e) => setData('email', e.target.value)}
                     />
 
@@ -117,11 +129,15 @@ export default function Login({
                         disabled={processing}>
                         Log in
                     </PrimaryButton>
-                    <a
-                        href="/auth/redirect"
-                        className="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 undefined ms-4">
-                        GitHub Login
-                    </a>
+                </div>
+
+                <div className="text-gray-600 dark:text-gray-400 text-sm underline text-right pt-5">
+                    <Link
+                        href={route('register')}
+                        className="w-max dark:hover:text-gray-100 hover:text-gray-900">
+                        Don't have an account?{' '}
+                        <span className="font-bold">Register</span>
+                    </Link>
                 </div>
             </form>
         </GuestLayout>
