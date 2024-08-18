@@ -1,8 +1,11 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Link } from '@inertiajs/react';
+import useTheme from '@/hooks/useTheme';
 
 export default function AccountDropdown() {
+    const { theme, toggleTheme } = useTheme();
+
     return (
         <Menu
             as="div"
@@ -42,6 +45,14 @@ export default function AccountDropdown() {
                             href={route('plugin.create')}
                             className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white">
                             Upload Plugin
+                        </a>
+                    </MenuItem>
+                    <MenuItem>
+                        <a
+                            href="#"
+                            onClick={() => toggleTheme()}
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white">
+                            {theme === 'dark' ? 'Light Theme' : 'Dark Theme'}
                         </a>
                     </MenuItem>
                 </div>

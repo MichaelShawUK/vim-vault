@@ -39,7 +39,7 @@ export default function Sorter({
             onChange={onCategoryChange}>
             <Label className="sr-only">Sort Plugins</Label>
             <div className="relative text-right">
-                <div className="inline-flex divide-x divide-gray-300 dark:divide-gray-600 rounded-md shadow-sm">
+                <div className="inline-flex divide-x divide-gray-300 dark:divide-gray-700 rounded-md shadow-sm">
                     <button
                         className="focus:z-10 inline-flex items-center gap-x-1.5 rounded-l-md px-3 py-2 bg-gray-100 dark:bg-gray-800 dark:ring-gray-700 shadow-sm dark:shadow-gray-600 dark:hover:bg-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600"
                         onClick={onToggle}>
@@ -60,7 +60,7 @@ export default function Sorter({
 
                 <ListboxOptions
                     transition
-                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-200 dark:divide-gray-600 overflow-hidden rounded-md bg-white dark:bg-gray-800 dark:shadow-gray-600 shadow-lg ring-1 ring-black dark:ring-gray-700 ring-opacity-5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in">
+                    className="absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden rounded-md bg-white dark:bg-gray-800 dark:shadow-gray-600 shadow-lg ring-1 ring-black dark:ring-gray-700 ring-opacity-5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in">
                     {categories.map((option) => (
                         <ListboxOption
                             value={option}

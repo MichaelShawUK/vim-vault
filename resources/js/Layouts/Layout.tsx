@@ -23,19 +23,23 @@ export default function Layout({
     return (
         <ThemeContext.Provider value={theme}>
             <div
-                className={`min-h-screen ${theme} transition-colors duration-500 bg-gray-50 dark:bg-gray-900 dark:text-white selection:bg-yellow-400 selection:text-black`}>
+                className={`min-h-screen ${theme} transition-colors duration-500 bg-white dark:bg-gray-900 dark:text-white selection:bg-yellow-400 selection:text-black`}>
                 <Head title={title} />
-                <header className="max-w-6xl mx-auto grid grid-cols-2 items-center px-3 gap-4 pt-7 mb-14 sm:mb-20">
-                    <Link
-                        href="/"
-                        className="w-fit">
-                        <Logo />
-                    </Link>
-                    <div className="flex items-center gap-x-4 divide-gray-200 dark:divide-gray-700 divide-x-2">
-                        <ThemeSwitch toggle={toggleTheme} />
-                        <HeaderActions user={user} />
+                <header className="max-w-6xl mx-auto px-3 pt-7 mb-14 sm:mb-20">
+                    <div className="flex items-center justify-between mb-8">
+                        <Link
+                            href="/"
+                            className="w-fit">
+                            <Logo />
+                        </Link>
+                        <div className="flex items-center gap-x-4 divide-gray-200 dark:divide-gray-700 divide-x-2">
+                            <ThemeSwitch toggle={toggleTheme} />
+                            <HeaderActions user={user} />
+                        </div>
                     </div>
-                    <Search />
+                    <div className="flex justify-center">
+                        <Search />
+                    </div>
                 </header>
 
                 <main className="max-w-4xl mx-auto text-center sm:px-4 ">

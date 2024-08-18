@@ -12,8 +12,8 @@ export default function PluginCard({ plugin }: Props) {
     dayjs.extend(relativeTime);
 
     return (
-        <article className="bg-gray-200 text-gray-900 dark:text-gray-300 dark:bg-gray-800 sm:rounded-lg sm:ring-1 ring-inset ring-gray-300 dark:ring-gray-600">
-            <div className="dark:bg-gray-700 bg-gray-300 sm:rounded-t-lg sm:flex sm:items-center sm:justify-between sm:gap-x-3 px-6 py-2">
+        <article className="bg-gray-100 text-gray-900 dark:text-gray-300 dark:bg-gray-800 sm:rounded-md shadow-lg dark:shadow-none sm:ring-1 ring-inset ring-gray-200 dark:ring-gray-700">
+            <div className="dark:bg-gray-700 bg-gray-200 shadow-sm sm:rounded-t-md sm:flex sm:items-center sm:justify-between sm:gap-x-3 px-6 py-2">
                 <div className="text-center sm:block sm:text-left">
                     <h3 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-0">
                         <a
