@@ -19,7 +19,7 @@ export default function Search() {
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        router.post('/search', { q: query });
+        router.get('/search', { q: query });
     }
 
     function focusInput() {

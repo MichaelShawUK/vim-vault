@@ -63,7 +63,7 @@ Route::get('/hello', function () {
     return Inertia::render('Hello');
 });
 
-Route::post('/search', function (Request $request) {
+Route::get('/search', function (Request $request) {
     $query = $request->input('q');
     $plugins = Plugin::query()->with('author', 'tags')->where('name', 'LIKE', "%$query%")->get();
     return Inertia::render('TagQuery', ['tag' => 'Search Results', 'plugins' => $plugins]);

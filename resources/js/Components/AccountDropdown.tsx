@@ -47,14 +47,6 @@ export default function AccountDropdown() {
                             Upload Plugin
                         </a>
                     </MenuItem>
-                    <MenuItem>
-                        <a
-                            href="#"
-                            onClick={() => toggleTheme()}
-                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white">
-                            {theme === 'dark' ? 'Light Theme' : 'Dark Theme'}
-                        </a>
-                    </MenuItem>
                 </div>
                 <div className="py-1">
                     <MenuItem>
