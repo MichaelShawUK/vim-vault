@@ -62,7 +62,13 @@ class DatabaseSeeder extends Seeder
 
     public function addPlugin($url, $tags = [])
     {
-
+        // get api response
+        // filter for required fields
+        // transform date stamps to correct format
+        // create plugin
+        // extract owner data
+        // create owner
+        // link owner and plugin relationship
         $response = Http::withToken(env('GITHUB_TOKEN'))->get($url)->collect();
         $filtered = $response->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
         dump($response);

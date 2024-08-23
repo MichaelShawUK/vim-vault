@@ -14,9 +14,7 @@ class Plugin extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'name', 'description', 'stargazers_count', 'url',
-    ];
+    protected $guarded = [];
 
     public function author(): BelongsTo
     {

@@ -5,6 +5,7 @@ use App\Models\Author;
 use App\Models\Plugin;
 use App\Models\Tag;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,37 @@ Route::get('/plugin/add', function () {
     return Inertia::render('PluginCreate', ['tags' => $tags]);
 })->name('plugin.create');
 
+Route::post('/plugin/checkurl', function (Request $request) {
+    $owner = $request->input('owner');
+    $repo = $request->input('repo');
+    $url = "https://api.github.com/repos/$owner/$repo";
+    $found = Plugin::query()->where('url', $url)->get();
+    if ($found->count()) dd("PLUGIN ALREADY EXISTS");
+
+    $response = Http::withToken(env('GITHUB_TOKEN'))->get($url);
+    if ($response->failed()) dd('FAILED TO LOCATE REPO. CHECK URL');
+
+    $data = $response->collect();
+    $pluginData = $data->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
+    $pluginData['created_at'] = Carbon::parse($pluginData['created_at'])->toDateTimeString();
+    $pluginData['updated_at'] = Carbon::parse($pluginData['updated_at'])->toDateTimeString();
+    $plugin = new Plugin($pluginData);
+
+    $owner = collect($data['owner'])->only(['id', 'login', 'avatar_url', 'html_url'])->toArray();
+    $author = Author::query()->firstOrCreate($owner);
+    $author->save();
+    $plugin->author()->associate($author);
+    $plugin->save();
+    $record = Plugin::find($plugin);
+
+
+    $tags = Tag::query()->orderBy('name')->get();
+    return redirect()->route('plugin.create', ['tags' => $tags, 'plugin' => $record]);
+    // return Inertia::render('PluginCreate', ['tags' => $tags, 'plugin' => $plugin->with('owner')]);
+
+    dd($plugin);
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -66,7 +98,7 @@ Route::get('/hello', function () {
 Route::get('/search', function (Request $request) {
     $query = $request->input('q');
     $plugins = Plugin::query()->with('author', 'tags')->where('name', 'LIKE', "%$query%")->get();
-    return Inertia::render('TagQuery', ['tag' => 'Search Results', 'plugins' => $plugins]);
+    return Inertia::render('TagQuery', ['tag' => $query, 'plugins' => $plugins]);
 });
 
 Route::get('/auth/redirect', function () {

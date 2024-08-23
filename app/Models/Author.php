@@ -10,9 +10,7 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-    ];
+    protected $guarded = [];
 
     public function plugins(): HasMany
     {
