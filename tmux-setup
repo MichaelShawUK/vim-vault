@@ -5,4 +5,6 @@ tmux new-window -a -t 'webdev:server' -n nvim -c ~/repos/vim-vault/ 'nvim'
 tmux new-window -a -t 'webdev:nvim' -n tinker -c ~/repos/vim-vault/ './vendor/bin/sail artisan tinker'
 tmux split-window -t 'webdev:server' -c ~/repos/vim-vault/ './vendor/bin/sail npm run dev'
 tmux new-window -a -t 'webdev:tinker' -c ~/repos/vim-vault/
+tmux set-window-option  -t 'webdev:tinker' remain-on-exit on
+tmux bind-key F5 respawn-window -k -t 'webdev:tinker'
 tmux select-window -t 'webdev:nvim'

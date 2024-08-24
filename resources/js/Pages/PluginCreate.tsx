@@ -11,6 +11,7 @@ export default function PluginCreate({
     tags,
     auth,
 }: PageProps<{ tags: Tag[]; plugin?: Plugin }>) {
+    console.log('PLUGIN: ', plugin);
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const regex =
         /^(?:https:\/\/www\.|https:\/\/|www\.)?github\.com\/(?<owner>[\w.-]+)\/(?<repo>[\w.-]+)$/;
@@ -36,7 +37,6 @@ export default function PluginCreate({
                 ? tags
                 : [...tags, tag];
         });
-    console.log(selectedTags);
 
     return (
         <Layout
@@ -63,20 +63,22 @@ export default function PluginCreate({
                     />
                 </div>
                 {plugin && <PluginCard plugin={plugin} />}
-                <div>
-                    <TagInput
-                        tags={tags}
-                        onAdd={addTag}
-                    />
-                    <ul className="flex gap-4">
-                        {selectedTags.map((tag) => (
-                            <TagBadge
-                                tag={tag}
-                                key={tag.id}
-                            />
-                        ))}
-                    </ul>
-                </div>
+                {plugin && (
+                    <div>
+                        <TagInput
+                            tags={tags}
+                            onAdd={addTag}
+                        />
+                        <ul className="flex gap-4">
+                            {selectedTags.map((tag) => (
+                                <TagBadge
+                                    tag={tag}
+                                    key={tag.id}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
         </Layout>
     );
