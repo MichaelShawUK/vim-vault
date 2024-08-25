@@ -44,11 +44,10 @@ Route::get('/author/{author}', function ($author) {
 });
 
 Route::get('/plugin/add', function () {
-    $tags = Tag::query()->orderBy('name')->get();
-    return Inertia::render('PluginCreate', ['tags' => $tags]);
+    return Inertia::render('PluginCreate', ['tags' => []]);
 })->name('plugin.create');
 
-Route::post('/plugin/checkurl', function (Request $request) {
+Route::post('/plugin/confirm', function (Request $request) {
     $owner = $request->input('owner');
     $repo = $request->input('repo');
     $url = "https://api.github.com/repos/$owner/$repo";
@@ -66,17 +65,12 @@ Route::post('/plugin/checkurl', function (Request $request) {
 
     $owner = collect($data['owner'])->only(['id', 'login', 'avatar_url', 'html_url'])->toArray();
     $author = Author::query()->firstOrCreate($owner);
-    $author->save();
+    // $author->save();
     $plugin->author()->associate($author);
-    $plugin->save();
-    $record = Plugin::find($plugin);
-
-
+    // $plugin->save();
     $tags = Tag::query()->orderBy('name')->get();
-    return redirect()->route('plugin.create', ['tags' => $tags, 'plugin' => $record]);
-    // return Inertia::render('PluginCreate', ['tags' => $tags, 'plugin' => $plugin->with('owner')]);
 
-    dd($plugin);
+    return Inertia::render('PluginCreate', ['tags' => $tags, 'plugin' => $plugin]);
 });
 
 Route::get('/dashboard', function () {

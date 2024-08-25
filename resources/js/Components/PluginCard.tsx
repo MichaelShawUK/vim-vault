@@ -54,16 +54,18 @@ export default function PluginCard({ plugin }: Props) {
                 {plugin.description}
             </p>
             <div className="sm:py-4 sm:flex sm:items-center">
-                <ul className="px-6 flex flex-wrap gap-3 py-3 sm:py-0">
-                    {plugin.tags.map((tag) => (
-                        <Tag
-                            key={tag.id}
-                            tag={tag}
-                            size="sm"
-                            background="bg-gray-300 dark:bg-gray-700"
-                        />
-                    ))}
-                </ul>
+                {plugin.tags && (
+                    <ul className="px-6 flex flex-wrap gap-3 py-3 sm:py-0">
+                        {plugin.tags.map((tag) => (
+                            <Tag
+                                key={tag.id}
+                                tag={tag}
+                                size="sm"
+                                background="bg-gray-300 dark:bg-gray-700"
+                            />
+                        ))}
+                    </ul>
+                )}
                 <p className="flex gap-3 bg-gradient-to-br from-blue-700 to-green-600 text-white w-max ml-auto px-8 py-1 rounded-tl sm:rounded-l font-bold">
                     {new Intl.NumberFormat('en-GB', {
                         notation: 'compact',
