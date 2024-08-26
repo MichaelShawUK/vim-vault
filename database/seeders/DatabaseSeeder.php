@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
         // create owner
         // link owner and plugin relationship
         $response = Http::withToken(env('GITHUB_TOKEN'))->get($url)->collect();
-        $filtered = $response->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
+        $filtered = $response->only(['id', 'name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
         dump($response);
 
         $filtered['created_at'] = Carbon::parse($filtered['created_at'])->toDateTimeString();

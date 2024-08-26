@@ -1,6 +1,6 @@
 {
     "singleQuote": true,
-    "bracketSameLine": true,
+    "bracketSameLine": false,
     "htmlWhitespaceSensitivity": "ignore",
     "singleAttributePerLine": true,
     "vueIndentScriptAndStyle": true

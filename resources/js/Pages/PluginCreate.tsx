@@ -5,12 +5,17 @@ import TagBadge from '@/Components/Tag';
 import PluginCard from '@/Components/PluginCard';
 import { useState } from 'react';
 import { Link, router } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 
 export default function PluginCreate({
     plugin,
     tags,
     auth,
 }: PageProps<{ tags: Tag[]; plugin?: Plugin }>) {
+    const page = usePage();
+    console.log(page);
+    const error = page.props.errors;
+    console.log(error);
     const [confirmed, setConfirmed] = useState(false);
     console.log('PLUGIN: ', plugin);
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -67,6 +72,7 @@ export default function PluginCreate({
                                 className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white block w-full border-0 p-0 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                             />
                         </div>
+                        {/* {error & <p>{error}</p>} */}
                     </div>
                 )}
                 {plugin && <PluginCard plugin={plugin} />}

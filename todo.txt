@@ -1,3 +1,4 @@
+0. Have page for github url input and page for plugin confirmation.
 1. If API returns successful response display data in a plugin card and question user if all looks correct.
     1b. If user replies NO then delete record in database and ask user to re-enter details.
     1c. If user replies YES move on to step 2.
