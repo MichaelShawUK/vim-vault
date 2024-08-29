@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PluginController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Author;
 use App\Models\Plugin;
@@ -43,36 +44,9 @@ Route::get('/author/{author}', function ($author) {
     return Inertia::render('Author', ['owner' => $owner]);
 });
 
-Route::get('/plugin/add', function () {
-    return Inertia::render('PluginCreate', ['tags' => []]);
-})->name('plugin.create');
+Route::get('/plugin/add', [PluginController::class, 'create'])->name('plugin.add');
+Route::post('/plugin/confirm', [PluginController::class, 'store']);
 
-Route::post('/plugin/confirm', function (Request $request) {
-    $owner = $request->input('owner');
-    $repo = $request->input('repo');
-    $url = "https://api.github.com/repos/$owner/$repo";
-    $found = Plugin::query()->where('url', $url)->get();
-    // if ($found->count()) dd("PLUGIN ALREADY EXISTS");
-    if ($found->count()) return back()->withErrors(['database' => 'plugin already exists']);
-
-    $response = Http::withToken(env('GITHUB_TOKEN'))->get($url);
-    if ($response->failed()) dd('FAILED TO LOCATE REPO. CHECK URL');
-
-    $data = $response->collect();
-    $pluginData = $data->only(['id', 'name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
-    $pluginData['created_at'] = Carbon::parse($pluginData['created_at'])->toDateTimeString();
-    $pluginData['updated_at'] = Carbon::parse($pluginData['updated_at'])->toDateTimeString();
-    $plugin = new Plugin($pluginData);
-
-    $owner = collect($data['owner'])->only(['id', 'login', 'avatar_url', 'html_url'])->toArray();
-    $author = Author::query()->firstOrCreate($owner);
-    $author->save();
-    $plugin->author()->associate($author);
-    $plugin->save();
-    $tags = Tag::query()->orderBy('name')->get();
-
-    return Inertia::render('PluginCreate', ['tags' => $tags, 'plugin' => $plugin]);
-});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

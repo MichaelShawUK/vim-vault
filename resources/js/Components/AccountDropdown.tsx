@@ -9,7 +9,8 @@ export default function AccountDropdown() {
     return (
         <Menu
             as="div"
-            className="relative inline-block text-left">
+            className="relative inline-block text-left"
+        >
             <div>
                 <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 dark:bg-gray-800 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-white shadow-sm dark:shadow-gray-600 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700">
                     Account
@@ -22,19 +23,22 @@ export default function AccountDropdown() {
 
             <MenuItems
                 transition
-                className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-800 shadow-lg dark:shadow-md dark:shadow-gray-700 ring-1 ring-black dark:ring-gray-700 ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in">
+                className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-800 shadow-lg dark:shadow-md dark:shadow-gray-700 ring-1 ring-black dark:ring-gray-700 ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+            >
                 <div className="py-1">
                     <MenuItem>
                         <a
                             href={route('profile.edit')}
-                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white">
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white"
+                        >
                             Profile
                         </a>
                     </MenuItem>
                     <MenuItem>
                         <a
                             href="#"
-                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white">
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white"
+                        >
                             Saved Plugins
                         </a>
                     </MenuItem>
@@ -42,8 +46,9 @@ export default function AccountDropdown() {
                 <div className="py-1">
                     <MenuItem>
                         <a
-                            href={route('plugin.create')}
-                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white">
+                            href={route('plugin.add')}
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white"
+                        >
                             Upload Plugin
                         </a>
                     </MenuItem>
@@ -54,7 +59,8 @@ export default function AccountDropdown() {
                             href={route('logout')}
                             className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white"
                             as="button"
-                            method="post">
+                            method="post"
+                        >
                             Log Out
                         </Link>
                     </MenuItem>
