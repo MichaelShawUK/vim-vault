@@ -46,6 +46,8 @@ Route::get('/author/{author}', function ($author) {
 
 Route::get('/plugin/add', [PluginController::class, 'create'])->name('plugin.add');
 Route::post('/plugin/confirm', [PluginController::class, 'store']);
+Route::post('/plugin/destroy/{id}', [PluginController::class, 'destroy']);
+Route::post('/plugin/reset/{id}', [PluginController::class, 'reset']);
 
 
 Route::get('/dashboard', function () {

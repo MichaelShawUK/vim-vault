@@ -4,6 +4,7 @@ import Layout from '@/Layouts/Layout';
 import Tag from '@/Components/Tag';
 import PluginCardSection from '@/Components/PluginCardSection';
 import { PageProps } from '@/types';
+import TagSelect from '@/Components/TagSelect';
 
 export default function Home({
     auth,
@@ -20,7 +21,8 @@ export default function Home({
     return (
         <Layout
             title="Home"
-            user={auth.user}>
+            user={auth.user}
+        >
             <div className="px-4">
                 <h1 className="text-6xl sm:text-7xl font-extrabold mt-20">
                     Discover&nbsp;
@@ -39,6 +41,8 @@ export default function Home({
                     </ul>
                 </section>
             </div>
+
+            <TagSelect tags={tags} />
 
             <PluginCardSection plugins={plugins} />
             <p className="mt-10">PLACEHOLDER</p>

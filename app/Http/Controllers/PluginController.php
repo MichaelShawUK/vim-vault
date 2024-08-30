@@ -50,4 +50,15 @@ class PluginController extends Controller
 
         return Inertia::render('PluginConfirm', ['plugin' => $plugin, 'tags' => $tags]);
     }
+
+    public function destroy(string $id)
+    {
+        Plugin::destroy($id);
+    }
+
+    public function reset(string $id)
+    {
+        Plugin::destroy($id);
+        return to_route('plugin.add');
+    }
 }
