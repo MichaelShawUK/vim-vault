@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { Tag as TagProps, Plugin as PluginProps } from '@/types';
 import Layout from '@/Layouts/Layout';
 import Tag from '@/Components/Tag';
@@ -42,7 +42,7 @@ export default function Home({
                 </section>
             </div>
 
-            <TagSelect tags={tags} />
+            <Link href="/test">Test</Link>
 
             <PluginCardSection plugins={plugins} />
             <p className="mt-10">PLACEHOLDER</p>

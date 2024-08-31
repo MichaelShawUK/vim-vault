@@ -48,6 +48,7 @@ Route::get('/plugin/add', [PluginController::class, 'create'])->name('plugin.add
 Route::post('/plugin/confirm', [PluginController::class, 'store']);
 Route::post('/plugin/destroy/{id}', [PluginController::class, 'destroy']);
 Route::post('/plugin/reset/{id}', [PluginController::class, 'reset']);
+Route::post('/plugin/add-tags', [PluginController::class, 'addTags']);
 
 
 Route::get('/dashboard', function () {
@@ -55,12 +56,23 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/test', function () {
-    $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/repos/stevearc/conform.nvim')->collect();
-    // $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/users/michaelshawuk');
-    $filtered = collect($response['owner'])->only(['id', 'login', 'html_url', 'avatar_url']);
-    dd(Schema::getColumnListing((new Author())->getTable()));
-    dd($filtered);
+    $plugin = Plugin::query()->where('name', 'vim-surround')->first();
+    if ($plugin) $plugin->delete();
+    return Inertia::render('PluginCreate');
+
 });
+
+// Route::post('/plugin/add-tags', function (Request $request) {
+//     $plugin = Plugin::find($request->input('id'));
+//     $tags = $request->input('tags');
+
+//     foreach($tags as $tagName) {
+//         $tag = Tag::query()->firstOrCreate(['name' => $tagName]);
+//         $plugin->tags()->attach($tag->id);
+//     }
+
+//     return redirect('/');
+// });
 
 Route::get('/hello', function () {
     return Inertia::render('Hello');

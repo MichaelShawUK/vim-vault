@@ -61,4 +61,17 @@ class PluginController extends Controller
         Plugin::destroy($id);
         return to_route('plugin.add');
     }
+
+    public function addTags(Request $request)
+    {
+        $plugin = Plugin::find($request->input('id'));
+        $tags = $request->input('tags');
+
+        foreach($tags as $tagName) {
+            $tag = Tag::query()->firstOrCreate(['name' => $tagName]);
+            $plugin->tags()->attach($tag->id);
+    }
+
+    return redirect('/');
+    }
 }
