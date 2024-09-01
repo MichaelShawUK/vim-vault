@@ -44,6 +44,7 @@ class PluginController extends Controller
         $owner = collect($response['owner'])->only(['id', 'login', 'avatar_url', 'html_url']);
         $author = Author::query()->firstOrCreate($owner->only('id')->toArray(), $owner->except('id')->toArray());
         $plugin->author()->associate($author);
+        $plugin->uploaded_at = Carbon::now();
         $plugin->save();
 
         $tags = Tag::query()->orderBy('name')->get();

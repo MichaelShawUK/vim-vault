@@ -83,6 +83,7 @@ class DatabaseSeeder extends Seeder
         $author = Author::query()->firstOrCreate($owner);
         $author->save();
         $plugin->author()->associate($author);
+        $plugin->uploaded_at = Carbon::now();
         $plugin->save();
 
         foreach($tags as $tagName) {

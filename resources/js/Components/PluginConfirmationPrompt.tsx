@@ -10,12 +10,12 @@ export default function PluginConfirmationPrompt({
     id,
 }: Props) {
     return (
-        <div className="text-xl space-y-5 my-6">
+        <div className="space-y-5 my-6">
             <p>Does this look correct?</p>
             <div className="space-x-10">
                 <button
                     onClick={onConfirmation}
-                    className="text-white bg-green-600 shadow-md shadow-gray-400 dark:shadow-none py-1 px-3 rounded hover:bg-green-700"
+                    className="text-white text-xs font-bold uppercase bg-green-600 shadow-md shadow-gray-400 dark:shadow-none py-3 px-4 rounded hover:bg-green-500 focus-within:bg-green-700"
                 >
                     Yes
                 </button>
@@ -24,7 +24,7 @@ export default function PluginConfirmationPrompt({
                     method="post"
                     href={`/plugin/reset/${id}`}
                     data={{ id }}
-                    className="text-white bg-red-600 shadow-md shadow-gray-400 dark:shadow-none py-1 px-3 rounded hover:bg-red-700"
+                    className="text-white text-xs font-bold uppercase bg-red-600 shadow-md shadow-gray-400 dark:shadow-none py-3 px-4 rounded hover:bg-red-500 focus-within:bg-red-700"
                 >
                     No
                 </Link>

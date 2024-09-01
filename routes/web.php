@@ -62,18 +62,6 @@ Route::get('/test', function () {
 
 });
 
-// Route::post('/plugin/add-tags', function (Request $request) {
-//     $plugin = Plugin::find($request->input('id'));
-//     $tags = $request->input('tags');
-
-//     foreach($tags as $tagName) {
-//         $tag = Tag::query()->firstOrCreate(['name' => $tagName]);
-//         $plugin->tags()->attach($tag->id);
-//     }
-
-//     return redirect('/');
-// });
-
 Route::get('/hello', function () {
     return Inertia::render('Hello');
 });

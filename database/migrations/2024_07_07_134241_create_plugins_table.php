@@ -26,6 +26,7 @@ return new class extends Migration
             // $table->foreignIdFor(Category::class);
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
+            $table->timestamp('uploaded_at');
         });
     }
 
