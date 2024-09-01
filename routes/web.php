@@ -32,6 +32,12 @@ Route::get('/', function () {
     // ]);
 });
 
+//TODO: web file todo
+//
+//FIX: rectify this
+//
+//WARNING: see this?
+
 Route::get('/tags/{tag}', function ($tag) {
     $record = Tag::query()->with(['plugins', 'plugins.author', 'plugins.tags'])->where('name', $tag)->first();
     $record->increment('hits');
@@ -50,11 +56,12 @@ Route::post('/plugin/destroy/{id}', [PluginController::class, 'destroy']);
 Route::post('/plugin/reset/{id}', [PluginController::class, 'reset']);
 Route::post('/plugin/add-tags', [PluginController::class, 'addTags']);
 
-
+//NOTE: Dashboard is not used
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+//TEST:
 Route::get('/test', function () {
     $plugin = Plugin::query()->where('name', 'vim-surround')->first();
     if ($plugin) $plugin->delete();
@@ -62,6 +69,7 @@ Route::get('/test', function () {
 
 });
 
+//HACK: Hello page not needed
 Route::get('/hello', function () {
     return Inertia::render('Hello');
 });

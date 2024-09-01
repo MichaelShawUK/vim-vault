@@ -4,10 +4,12 @@ import { Plugin as PluginProps } from '@/types';
 import Tag from './Tag';
 import Star from '@/SVG/Star';
 import NewTab from '@/SVG/NewTab';
+import Bookmark from '@/SVG/Bookmark';
 
 interface Props {
     plugin: PluginProps;
 }
+//TODO: Give user ability to save plugin
 export default function PluginCard({ plugin }: Props) {
     dayjs.extend(relativeTime);
 
@@ -19,7 +21,8 @@ export default function PluginCard({ plugin }: Props) {
                         <a
                             href={plugin.html_url}
                             className="flex items-center gap-1 justify-center hover:underline"
-                            target="_blank">
+                            target="_blank"
+                        >
                             {plugin.name}
                             <NewTab />
                         </a>
@@ -28,7 +31,8 @@ export default function PluginCard({ plugin }: Props) {
                         by{' '}
                         <a
                             className="underline hover:font-bold"
-                            href={`/author/${plugin.author.login}`}>
+                            href={`/author/${plugin.author.login}`}
+                        >
                             <img
                                 height={18}
                                 width={18}
@@ -50,9 +54,14 @@ export default function PluginCard({ plugin }: Props) {
                     </p>
                 </div>
             </div>
-            <p className="text-lg sm:text-xl font-bold p-6 pb-3">
-                {plugin.description}
-            </p>
+            <div className="relative">
+                <button className="absolute text-red-500 dark:text-gray-600 right-0 p-1 rounded-bl hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 dark:hover:bg-gradient-to-br dark:hover:from-blue-700 dark:hover:to-green-600">
+                    <Bookmark isSaved={false} />
+                </button>
+                <p className="text-lg sm:text-xl font-bold p-6 pb-3">
+                    {plugin.description}
+                </p>
+            </div>
             <div className="sm:py-4 sm:flex sm:items-center">
                 {plugin.tags && (
                     <ul className="px-6 flex flex-wrap gap-3 py-3 sm:py-0">
