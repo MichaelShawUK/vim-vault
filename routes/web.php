@@ -74,7 +74,6 @@ Route::post('/plugin/save', function (Request $request) {
         $user = User::find($userId);
         $user->savedPlugins()->attach($pluginId);
     }
-    //TODO: Refresh state to show new saved status on redirect
     return redirect("/");
 });
 

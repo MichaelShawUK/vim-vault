@@ -8,18 +8,19 @@ import Bookmark from '@/SVG/Bookmark';
 import AuthenticatedUserContext from '@/Context/AuthenticatedUserContext';
 import { useContext } from 'react';
 import { router } from '@inertiajs/react';
+import { usePluginsDispatch } from '@/Context/PluginsContext';
 
 interface Props {
     plugin: SavablePlugin;
-    onSave: (pluginId: string) => void;
 }
 //HACK: Don't call useContext in every render of card component pass in value though parent
-export default function PluginCard({ plugin, onSave }: Props) {
+export default function PluginCard({ plugin }: Props) {
     dayjs.extend(relativeTime);
     const user = useContext(AuthenticatedUserContext);
+    const dispatch = usePluginsDispatch();
 
     function saveHandler(pluginId: string) {
-        onSave(pluginId);
+        dispatch({ type: 'toggle_save', pluginId });
 
         if (user) {
             router.post(
@@ -91,6 +92,7 @@ export default function PluginCard({ plugin, onSave }: Props) {
                     {plugin.description}
                 </p>
                 <p
+                    // FIX: Animation should only be displayed for clicking save button - not on initial render
                     className={`text-red-500 ${plugin.saved && `animate-fade`} opacity-0 pointer-events-none absolute top-1 right-9 text-xs uppercase font-bold`}
                 >
                     Saved

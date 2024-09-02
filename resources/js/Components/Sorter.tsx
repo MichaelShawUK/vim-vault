@@ -13,13 +13,8 @@ import {
     ArrowsUpDownIcon,
 } from '@heroicons/react/20/solid';
 import { SortCategories } from '@/types';
-
-interface Props {
-    selected: SortCategories;
-    onCategoryChange: (category: SortCategories) => void;
-    onToggle: () => void;
-    onSort: (category: SortCategories) => void;
-}
+import { useState } from 'react';
+import { usePluginsDispatch } from '@/Context/PluginsContext';
 
 const categories: SortCategories[] = [
     'Stars',
@@ -29,29 +24,36 @@ const categories: SortCategories[] = [
     'Created',
 ];
 
-export default function Sorter({
-    selected,
-    onCategoryChange,
-    onToggle,
-    onSort,
-}: Props) {
+export default function Sorter() {
+    const [sortCategory, setSortCategory] = useState<SortCategories>('Stars');
+    const dispatch = usePluginsDispatch();
+
+    function sort(category: SortCategories) {
+        setSortCategory(category);
+        if (category === 'Stars') dispatch({ type: 'sort_by_stars' });
+        if (category === 'Name') dispatch({ type: 'sort_by_name' });
+        if (category === 'Owner') dispatch({ type: 'sort_by_owner' });
+        if (category === 'Updated') dispatch({ type: 'sort_by_updated' });
+        if (category === 'Created') dispatch({ type: 'sort_by_created' });
+    }
+
     return (
         <Listbox
-            value={selected}
-            onChange={onSort}
+            value={sortCategory}
+            onChange={sort}
         >
             <Label className="sr-only">Sort Plugins</Label>
             <div className="relative text-right">
                 <div className="inline-flex divide-x divide-gray-300 dark:divide-gray-700 rounded-md shadow-sm">
                     <button
                         className="focus:z-10 inline-flex items-center gap-x-1.5 rounded-l-md px-3 py-2 bg-gray-100 dark:bg-gray-800 dark:ring-gray-700 shadow-sm dark:shadow-gray-600 dark:hover:bg-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600"
-                        onClick={onToggle}
+                        onClick={() => dispatch({ type: 'toggle_sort_order' })}
                     >
                         <ArrowsUpDownIcon
                             aria-hidden="true"
                             className="-ml-0.5 h-5 w-5"
                         />
-                        <p className="text-sm font-semibold">{selected}</p>
+                        <p className="text-sm font-semibold">{sortCategory}</p>
                     </button>
                     <ListboxButton className="inline-flex items-center rounded-l-none bg-gray-100 dark:bg-gray-800 dark:ring-gray-700 shadow-sm dark:shadow-gray-600 dark:hover:bg-gray-700 ring-1 ring-gray-300 hover:bg-gray-200 rounded-r-md p-2 focus:outline-none focus:ring-2 ">
                         <span className="sr-only">Sort Plugins</span>
