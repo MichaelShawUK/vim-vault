@@ -68,4 +68,13 @@ export interface Tag {
   plugins: Plugin[]
 }
 
+type pluginAction =
+| { type: 'toggle_save', pluginId: string }
+| { type: 'toggle_sort_order'}
+| { type: 'sort_by_stars' }
+| { type: 'sort_by_name' }
+| { type: 'sort_by_owner' }
+| { type: 'sort_by_updated' }
+| { type: 'sort_by_created' }
+
 export type SortCategories = "Stars" | "Name" | "Owner" | "Updated" | "Created";

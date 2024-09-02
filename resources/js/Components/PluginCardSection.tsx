@@ -1,44 +1,45 @@
 import Sorter from './Sorter';
 import { SortCategories, Plugin as PluginProps, SavablePlugin } from '@/types';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import PluginCard from './PluginCard';
+import pluginReducer from '@/Reducers/plugins';
 
 interface Props {
-    // plugins: PluginProps[];
     plugins: SavablePlugin[];
 }
 
 export default function PluginCardSection({ plugins }: Props) {
-    const [sortedPlugins, setSortedPlugins] = useState(plugins);
     const [selectedSortCategory, setSelectedSortCategory] =
         useState<SortCategories>('Stars');
 
-    function onCategoryChange(category: SortCategories) {
-        if (category === selectedSortCategory) return;
+    const [state, dispatch] = useReducer(pluginReducer, plugins);
+
+    function toggleSaveStatus(pluginId: string) {
+        console.log(pluginId);
+        dispatch({ type: 'toggle_save', pluginId });
+    }
+
+    const reverseSort = () => dispatch({ type: 'toggle_sort_order' });
+
+    function sortBy(category: SortCategories) {
         setSelectedSortCategory(category);
-        sort(category);
-    }
-
-    function sort(category: SortCategories) {
-        setSortedPlugins(
-            sortedPlugins.toSorted((a, b) => {
-                if (category === 'Stars')
-                    return b.stargazers_count - a.stargazers_count;
-                else if (category === 'Name') {
-                    return a.name > b.name ? 1 : -1;
-                } else if (category === 'Owner') {
-                    return a.author.login > b.author.login ? 1 : -1;
-                } else if (category === 'Updated') {
-                    return Date.parse(b.updated_at) - Date.parse(a.updated_at);
-                } else if (category === 'Created') {
-                    return Date.parse(b.created_at) - Date.parse(a.created_at);
-                } else return 0;
-            }),
-        );
-    }
-
-    function toggleSortOrder() {
-        setSortedPlugins(sortedPlugins.toReversed());
+        switch (category.toLowerCase()) {
+            case 'stars':
+                dispatch({ type: 'sort_by_stars' });
+                break;
+            case 'name':
+                dispatch({ type: 'sort_by_name' });
+                break;
+            case 'owner':
+                dispatch({ type: 'sort_by_owner' });
+                break;
+            case 'updated':
+                dispatch({ type: 'sort_by_updated' });
+                break;
+            case 'created':
+                dispatch({ type: 'sort_by_created' });
+                break;
+        }
     }
 
     return (
@@ -46,15 +47,16 @@ export default function PluginCardSection({ plugins }: Props) {
             {plugins.length > 1 && (
                 <Sorter
                     selected={selectedSortCategory}
-                    onCategoryChange={onCategoryChange}
-                    onToggle={toggleSortOrder}
+                    onToggle={reverseSort}
+                    onSort={sortBy}
                 />
             )}
             <section className="space-y-12 mt-10">
-                {sortedPlugins.map((plugin) => (
+                {state.map((plugin) => (
                     <PluginCard
                         plugin={plugin}
                         key={plugin.id}
+                        onSave={toggleSaveStatus}
                     />
                 ))}
             </section>

@@ -12,15 +12,16 @@ import { router } from '@inertiajs/react';
 interface Props {
     // plugin: PluginProps;
     plugin: SavablePlugin;
+    onSave: (pluginId: string) => void;
 }
 //HACK: Don't call useContext in every render of card component pass in value though parent
-export default function PluginCard({ plugin }: Props) {
+export default function PluginCard({ plugin, onSave }: Props) {
     dayjs.extend(relativeTime);
     const user = useContext(AuthenticatedUserContext);
 
-    function saveHandler() {
-        console.log('User: ', user && user.id);
-        console.log('Plugin: ', plugin.id);
+    function saveHandler(pluginId: string) {
+        onSave(pluginId);
+
         if (user) {
             router.post(
                 '/plugin/save',
@@ -79,7 +80,8 @@ export default function PluginCard({ plugin }: Props) {
             <div className="relative">
                 {user && (
                     <button
-                        onClick={saveHandler}
+                        onClick={(e) => saveHandler(e.currentTarget.value)}
+                        value={plugin.id}
                         className="absolute text-red-500 dark:text-gray-600 right-0 p-1 rounded-bl hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 dark:hover:bg-gradient-to-br dark:hover:from-blue-700 dark:hover:to-green-600"
                     >
                         <Bookmark isSaved={plugin.saved} />
