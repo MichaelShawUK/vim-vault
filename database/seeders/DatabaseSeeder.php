@@ -88,8 +88,8 @@ class DatabaseSeeder extends Seeder
 
         foreach($tags as $tagName) {
             $tag = Tag::query()->firstOrCreate(['name' => $tagName]);
+        $plugin->tags()->attach($tag->id);
 
-            $plugin->tags()->attach($tag->id);
         }
     }
 }

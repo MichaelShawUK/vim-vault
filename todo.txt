@@ -1,4 +1,4 @@
-1. Add uploaded_at field to plugin model
+x. Add uploaded_at field to plugin model
 2. Give user ability to save plugin
 3. Add guard for uploading plugins for authenticated users
 4. Edit profile page

@@ -1,17 +1,39 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { Plugin as PluginProps } from '@/types';
+import { Plugin as PluginProps, SavablePlugin } from '@/types';
 import Tag from './Tag';
 import Star from '@/SVG/Star';
 import NewTab from '@/SVG/NewTab';
 import Bookmark from '@/SVG/Bookmark';
+import AuthenticatedUserContext from '@/Context/AuthenticatedUserContext';
+import { useContext } from 'react';
+import { router } from '@inertiajs/react';
 
 interface Props {
-    plugin: PluginProps;
+    // plugin: PluginProps;
+    plugin: SavablePlugin;
 }
-//TODO: Give user ability to save plugin
+//HACK: Don't call useContext in every render of card component pass in value though parent
 export default function PluginCard({ plugin }: Props) {
     dayjs.extend(relativeTime);
+    const user = useContext(AuthenticatedUserContext);
+
+    function saveHandler() {
+        console.log('User: ', user && user.id);
+        console.log('Plugin: ', plugin.id);
+        if (user) {
+            router.post(
+                '/plugin/save',
+                {
+                    userId: user.id,
+                    pluginId: plugin.id,
+                },
+                {
+                    preserveScroll: true,
+                },
+            );
+        }
+    }
 
     return (
         <article className="bg-gray-100 text-gray-900 dark:text-gray-300 dark:bg-gray-800 sm:rounded-md shadow-lg dark:shadow-none sm:ring-1 ring-inset ring-gray-200 dark:ring-gray-700">
@@ -55,9 +77,14 @@ export default function PluginCard({ plugin }: Props) {
                 </div>
             </div>
             <div className="relative">
-                <button className="absolute text-red-500 dark:text-gray-600 right-0 p-1 rounded-bl hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 dark:hover:bg-gradient-to-br dark:hover:from-blue-700 dark:hover:to-green-600">
-                    <Bookmark isSaved={false} />
-                </button>
+                {user && (
+                    <button
+                        onClick={saveHandler}
+                        className="absolute text-red-500 dark:text-gray-600 right-0 p-1 rounded-bl hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 dark:hover:bg-gradient-to-br dark:hover:from-blue-700 dark:hover:to-green-600"
+                    >
+                        <Bookmark isSaved={plugin.saved} />
+                    </button>
+                )}
                 <p className="text-lg sm:text-xl font-bold p-6 pb-3">
                     {plugin.description}
                 </p>

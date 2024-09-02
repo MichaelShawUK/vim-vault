@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -33,6 +34,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * The saved plugins that belong to the user.
+     */
+    public function savedPlugins(): BelongsToMany
+    {
+        return $this->belongsToMany(Plugin::class, 'saved_plugins_users');
+    }
 
     /**
      * Get the attributes that should be cast.

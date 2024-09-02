@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -19,10 +20,18 @@ use Laravel\Socialite\Facades\Socialite;
 Route::get('/', function () {
     $tags = Tag::orderBy('hits', 'desc')->get();
     $plugins = Plugin::query()->with(['author', 'tags:id,name'])->orderBy('stargazers_count', 'desc')->get();
+    $saved = [];
+    if (Auth::user())
+    {
+        $user = User::find(Auth::user()->id);
+        $saved = $user->savedPlugins->pluck('id')->toArray();
+    }
+
 
     return Inertia::render('Home', [
         'tags' => $tags,
         'plugins' => $plugins,
+        'saved' => $saved
     ]);
     // return Inertia::render('Welcome', [
     //     'canLogin' => Route::has('login'),
@@ -55,6 +64,19 @@ Route::post('/plugin/confirm', [PluginController::class, 'store']);
 Route::post('/plugin/destroy/{id}', [PluginController::class, 'destroy']);
 Route::post('/plugin/reset/{id}', [PluginController::class, 'reset']);
 Route::post('/plugin/add-tags', [PluginController::class, 'addTags']);
+Route::post('/plugin/save', function (Request $request) {
+    $userId = $request->input('userId');
+    $pluginId = $request->input('pluginId');
+    $found = DB::table('saved_plugins_users')->where('plugin_id', $pluginId)->where('user_id', $userId)->first();
+    if ($found) {
+        DB::table('saved_plugins_users')->delete($found->id);
+    } else {
+        $user = User::find($userId);
+        $user->savedPlugins()->attach($pluginId);
+    }
+    //TODO: Refresh state to show new saved status on redirect
+    return redirect("/");
+});
 
 //NOTE: Dashboard is not used
 Route::get('/dashboard', function () {

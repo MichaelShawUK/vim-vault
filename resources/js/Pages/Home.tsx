@@ -1,22 +1,36 @@
 import { Head, Link } from '@inertiajs/react';
-import { Tag as TagProps, Plugin as PluginProps } from '@/types';
+import { Tag as TagProps, Plugin as PluginProps, SavablePlugin } from '@/types';
 import Layout from '@/Layouts/Layout';
 import Tag from '@/Components/Tag';
 import PluginCardSection from '@/Components/PluginCardSection';
 import { PageProps } from '@/types';
+import { usePage } from '@inertiajs/react';
 import TagSelect from '@/Components/TagSelect';
 
 export default function Home({
     auth,
     tags,
     plugins,
-}: PageProps<{ tags: TagProps[]; plugins: PluginProps[] }>) {
+    saved,
+}: PageProps<{ tags: TagProps[]; plugins: PluginProps[]; saved: number[] }>) {
     const tagItems = tags.map((tag) => (
         <Tag
             key={tag.id}
             tag={tag}
         />
     ));
+
+    const page = usePage();
+    console.log(page);
+
+    const savablePlugins = plugins.map(
+        (plugin): SavablePlugin => ({
+            ...plugin,
+            saved: saved.includes(plugin.id),
+        }),
+    );
+
+    console.log(savablePlugins);
 
     return (
         <Layout
@@ -44,7 +58,7 @@ export default function Home({
 
             <Link href="/test">Test</Link>
 
-            <PluginCardSection plugins={plugins} />
+            <PluginCardSection plugins={savablePlugins} />
             <p className="mt-10">PLACEHOLDER</p>
         </Layout>
     );

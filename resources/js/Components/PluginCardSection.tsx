@@ -1,15 +1,14 @@
-import { PropsWithChildren } from 'react';
 import Sorter from './Sorter';
-import { SortCategories, Plugin as PluginProps } from '@/types';
+import { SortCategories, Plugin as PluginProps, SavablePlugin } from '@/types';
 import { useState } from 'react';
 import PluginCard from './PluginCard';
 
 interface Props {
-    heading?: string;
-    plugins: PluginProps[];
+    // plugins: PluginProps[];
+    plugins: SavablePlugin[];
 }
 
-export default function PluginCardSection({ plugins, heading }: Props) {
+export default function PluginCardSection({ plugins }: Props) {
     const [sortedPlugins, setSortedPlugins] = useState(plugins);
     const [selectedSortCategory, setSelectedSortCategory] =
         useState<SortCategories>('Stars');
@@ -44,11 +43,13 @@ export default function PluginCardSection({ plugins, heading }: Props) {
 
     return (
         <div>
-            <Sorter
-                selected={selectedSortCategory}
-                onCategoryChange={onCategoryChange}
-                onToggle={toggleSortOrder}
-            />
+            {plugins.length > 1 && (
+                <Sorter
+                    selected={selectedSortCategory}
+                    onCategoryChange={onCategoryChange}
+                    onToggle={toggleSortOrder}
+                />
+            )}
             <section className="space-y-12 mt-10">
                 {sortedPlugins.map((plugin) => (
                     <PluginCard

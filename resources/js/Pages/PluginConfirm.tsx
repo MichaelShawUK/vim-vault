@@ -1,4 +1,5 @@
 import PluginCard from '@/Components/PluginCard';
+import PluginCardSection from '@/Components/PluginCardSection';
 import PluginConfirmationPrompt from '@/Components/PluginConfirmationPrompt';
 import TagSelect from '@/Components/TagSelect';
 import Layout from '@/Layouts/Layout';
@@ -52,7 +53,7 @@ export default function PluginConfirm({
     return (
         <Layout
             user={auth.user}
-            title="Confim Plugin"
+            title="Confirm Plugin"
         >
             <PluginCard plugin={plugin} />
             {!confirmed && (

@@ -39,6 +39,11 @@ class Plugin extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function savedBy(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'saved_plugins_users');
+    }
+
     public function slug()
     {
         return Str::of($this->full_name)->replace('/', ' ')->replace('.', ' ')->slug();

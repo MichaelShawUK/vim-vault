@@ -53,6 +53,10 @@ export interface Plugin {
   tags: Tag[]
 }
 
+export interface SavablePlugin extends Plugin {
+    saved: boolean
+}
+
 export interface Tag {
   // columns
   id: number
