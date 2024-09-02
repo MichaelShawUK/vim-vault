@@ -15,6 +15,15 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            keyframes: {
+                fade: {
+                    '0%, 100%': { opacity: 0 },
+                    '40%, 70%': { opacity: 1 },
+                },
+            },
+            animation: {
+                fade: 'fade 1s ease-out',
+            },
         },
     },
 

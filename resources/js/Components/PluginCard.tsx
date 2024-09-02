@@ -10,7 +10,6 @@ import { useContext } from 'react';
 import { router } from '@inertiajs/react';
 
 interface Props {
-    // plugin: PluginProps;
     plugin: SavablePlugin;
     onSave: (pluginId: string) => void;
 }
@@ -82,13 +81,19 @@ export default function PluginCard({ plugin, onSave }: Props) {
                     <button
                         onClick={(e) => saveHandler(e.currentTarget.value)}
                         value={plugin.id}
-                        className="absolute text-red-500 dark:text-gray-600 right-0 p-1 rounded-bl hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 dark:hover:bg-gradient-to-br dark:hover:from-blue-700 dark:hover:to-green-600"
+                        className="absolute text-red-500 dark:text-gray-600 right-0 p-1 pt-0 rounded-bl hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 dark:hover:bg-gradient-to-br dark:hover:from-blue-700 dark:hover:to-green-600"
+                        // className="absolute text-red-500 dark:text-gray-600 right-0 p-1 pt-0 hover:rounded-bl hover:bg-red-500/30"
                     >
                         <Bookmark isSaved={plugin.saved} />
                     </button>
                 )}
                 <p className="text-lg sm:text-xl font-bold p-6 pb-3">
                     {plugin.description}
+                </p>
+                <p
+                    className={`text-red-500 ${plugin.saved && `animate-fade`} opacity-0 pointer-events-none absolute top-1 right-9 text-xs uppercase font-bold`}
+                >
+                    Saved
                 </p>
             </div>
             <div className="sm:py-4 sm:flex sm:items-center">
