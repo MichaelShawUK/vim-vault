@@ -17,6 +17,8 @@ class Plugin extends Model
 
     protected $guarded = [];
 
+    protected $with = ['tags', 'author'];
+
     protected function description(): Attribute
     {
         return Attribute::make(

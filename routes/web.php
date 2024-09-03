@@ -76,6 +76,9 @@ Route::post('/plugin/save', function (Request $request) {
     }
     return redirect("/");
 });
+Route::get('/plugin/saved', function () {
+    dd(Auth::user()->savedPlugins);
+});
 
 //NOTE: Dashboard is not used
 Route::get('/dashboard', function () {

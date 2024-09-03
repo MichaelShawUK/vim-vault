@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { Tag as TagProps, Plugin as PluginProps, SavablePlugin } from '@/types';
 import Layout from '@/Layouts/Layout';
 import Tag from '@/Components/Tag';
@@ -30,6 +30,8 @@ export default function Home({
             saved: saved.includes(plugin.id),
         }),
     );
+
+    console.log(usePage());
 
     const [state, dispatch] = useReducer(pluginReducer, initialPlugins);
 
