@@ -1,12 +1,12 @@
 import Sorter from './Sorter';
-import { usePlugins } from '@/Context/PluginsContext';
+import { usePlugins, usePluginsDispatch } from '@/Context/PluginsContext';
 import PluginCard from './PluginCard';
+import { useAuthenticatedUser } from '@/Context/AuthenticatedUserContext';
 
 export default function PluginCardSection() {
     const contextPlugins = usePlugins();
-
-    //TODO: Extract state and dispatch into separate contexts
-    //https://react.dev/learn/scaling-up-with-reducer-and-context#step-1-create-the-context
+    const authenticatedUser = useAuthenticatedUser();
+    const pluginsDispatch = usePluginsDispatch();
 
     return (
         <div>
@@ -16,6 +16,8 @@ export default function PluginCardSection() {
                     <PluginCard
                         plugin={plugin}
                         key={plugin.id}
+                        authenticatedUser={authenticatedUser}
+                        dispatch={pluginsDispatch}
                     />
                 ))}
             </section>

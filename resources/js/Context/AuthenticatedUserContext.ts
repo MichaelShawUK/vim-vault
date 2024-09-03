@@ -1,6 +1,9 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { User } from "@/types";
 
-const AuthenticatedUserContext = createContext<User|null>(null);
+export const AuthenticatedUserContext = createContext<User|null>(null);
 
-export default AuthenticatedUserContext;
+
+export function useAuthenticatedUser() {
+    return useContext(AuthenticatedUserContext);
+}

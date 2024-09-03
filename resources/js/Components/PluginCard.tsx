@@ -1,32 +1,35 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { Plugin as PluginProps, SavablePlugin } from '@/types';
+import { pluginAction, SavablePlugin, User } from '@/types';
 import Tag from './Tag';
 import Star from '@/SVG/Star';
 import NewTab from '@/SVG/NewTab';
 import Bookmark from '@/SVG/Bookmark';
-import AuthenticatedUserContext from '@/Context/AuthenticatedUserContext';
-import { useContext } from 'react';
 import { router } from '@inertiajs/react';
-import { usePluginsDispatch } from '@/Context/PluginsContext';
+import { useState } from 'react';
 
 interface Props {
     plugin: SavablePlugin;
+    authenticatedUser: User | null;
+    dispatch: React.Dispatch<pluginAction>;
 }
-//HACK: Don't call useContext in every render of card component pass in value though parent
-export default function PluginCard({ plugin }: Props) {
+export default function PluginCard({
+    plugin,
+    authenticatedUser,
+    dispatch,
+}: Props) {
     dayjs.extend(relativeTime);
-    const user = useContext(AuthenticatedUserContext);
-    const dispatch = usePluginsDispatch();
+    const [lastSaved, setLastSaved] = useState('');
 
     function saveHandler(pluginId: string) {
         dispatch({ type: 'toggle_save', pluginId });
+        setLastSaved(pluginId);
 
-        if (user) {
+        if (authenticatedUser) {
             router.post(
                 '/plugin/save',
                 {
-                    userId: user.id,
+                    userId: authenticatedUser.id,
                     pluginId: plugin.id,
                 },
                 {
@@ -78,12 +81,12 @@ export default function PluginCard({ plugin }: Props) {
                 </div>
             </div>
             <div className="relative">
-                {user && (
+                {authenticatedUser && (
                     <button
                         onClick={(e) => saveHandler(e.currentTarget.value)}
                         value={plugin.id}
-                        className="absolute text-red-500 dark:text-gray-600 right-0 p-1 pt-0 rounded-bl hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 dark:hover:bg-gradient-to-br dark:hover:from-blue-700 dark:hover:to-green-600"
-                        // className="absolute text-red-500 dark:text-gray-600 right-0 p-1 pt-0 hover:rounded-bl hover:bg-red-500/30"
+                        // className="absolute text-red-500 dark:text-gray-600 right-0 p-1 pt-0 rounded-bl hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 dark:hover:bg-gradient-to-br dark:hover:from-blue-700 dark:hover:to-green-600"
+                        className="absolute text-red-500 dark:text-gray-600 right-0 p-1 pt-0 hover:rounded-bl hover:bg-red-500/30"
                     >
                         <Bookmark isSaved={plugin.saved} />
                     </button>
@@ -92,10 +95,10 @@ export default function PluginCard({ plugin }: Props) {
                     {plugin.description}
                 </p>
                 <p
-                    // FIX: Animation should only be displayed for clicking save button - not on initial render
-                    className={`text-red-500 ${plugin.saved && `animate-fade`} opacity-0 pointer-events-none absolute top-1 right-9 text-xs uppercase font-bold`}
+                    onAnimationEnd={() => setLastSaved('')}
+                    className={`text-red-500 ${lastSaved === plugin.id.toString() ? 'animate-fade' : ''} opacity-0 pointer-events-none absolute top-1 right-9 text-xs uppercase font-bold`}
                 >
-                    Saved
+                    {plugin.saved ? 'Saved' : 'Unsaved'}
                 </p>
             </div>
             <div className="sm:py-4 sm:flex sm:items-center">

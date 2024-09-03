@@ -4,7 +4,7 @@ import Logo from '@/SVG/Logo';
 import { Link, Head } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
 import ThemeContext from '@/Context/ThemeContext';
-import AuthenticatedUserContext from '@/Context/AuthenticatedUserContext';
+import { AuthenticatedUserContext } from '@/Context/AuthenticatedUserContext';
 import useTheme from '@/hooks/useTheme';
 import HeaderActions from '@/Components/HeaderActions';
 import { User } from '@/types';
