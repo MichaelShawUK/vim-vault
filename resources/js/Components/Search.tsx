@@ -1,9 +1,14 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { router } from '@inertiajs/react';
+import SearchDomainCheckbox from './SearchDomainCheckbox';
 
 export default function Search() {
     const inputRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState('');
+    const [searchName, setSearchName] = useState(true);
+    const [searchTag, setSearchTag] = useState(true);
+    const [searchDescription, setSearchDescription] = useState(true);
+    const [searchOwner, setSearchOwner] = useState(true);
 
     useEffect(() => {
         document.addEventListener('keydown', function (event) {
@@ -61,6 +66,13 @@ export default function Search() {
                     </kbd>
                 </div>
             </div>
+            <h4 className="text-center my-2">Search in these categories</h4>
+            <ul className="flex justify-between">
+                <SearchDomainCheckbox label="Name" />
+                <SearchDomainCheckbox label="Tag" />
+                <SearchDomainCheckbox label="Description" />
+                <SearchDomainCheckbox label="Owner" />
+            </ul>
         </form>
     );
 }
