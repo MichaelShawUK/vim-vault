@@ -36,7 +36,7 @@ export default function AccountDropdown() {
                     </MenuItem>
                     <MenuItem>
                         <a
-                            href="#"
+                            href="/plugin/saved"
                             className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100 data-[focus]:bg-gray-100 dark:data-[focus]:bg-gray-700 data-[focus]:text-gray-900 dark:data-[focus]:text-white"
                         >
                             Saved Plugins

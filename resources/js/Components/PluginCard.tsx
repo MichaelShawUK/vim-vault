@@ -57,7 +57,7 @@ export default function PluginCard({
                         by{' '}
                         <a
                             className="underline hover:font-bold"
-                            href={`/author/${plugin.author.login}`}
+                            href={`/plugin/owner/${plugin.author.login}`}
                         >
                             <img
                                 height={18}

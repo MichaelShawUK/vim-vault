@@ -47,6 +47,8 @@ export default function Sorter() {
                 <div className="inline-flex divide-x divide-gray-300 dark:divide-gray-700 rounded-md shadow-sm">
                     <button
                         className="focus:z-10 inline-flex items-center gap-x-1.5 rounded-l-md px-3 py-2 bg-gray-100 dark:bg-gray-800 dark:ring-gray-700 shadow-sm dark:shadow-gray-600 dark:hover:bg-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-600"
+                        // NOTE: Reverse sort order button doesn't work as intended for search results view
+                        //       Results view returns plugins in suitability order and button reverses this order
                         onClick={() => dispatch({ type: 'toggle_sort_order' })}
                     >
                         <ArrowsUpDownIcon

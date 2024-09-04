@@ -1,16 +1,14 @@
-import Banner from '@/Components/Banner';
 import PluginCardSection from '@/Components/PluginCardSection';
-import PopularTags from '@/Components/PopularTagsSection';
 import SiteLayout from '@/Layouts/SiteLayout';
 import pluginReducer from '@/Reducers/plugins';
-import { PageProps, Plugin, SavablePlugin, Tag } from '@/types';
+import { PageProps, Plugin, SavablePlugin } from '@/types';
+import { usePage } from '@inertiajs/react';
 import { useReducer } from 'react';
 
-export default function Index({
+export default function Search({
     auth,
     plugins,
-    tags,
-}: PageProps<{ plugins: Plugin[]; tags: Tag[] }>) {
+}: PageProps<{ plugins: Plugin[] }>) {
     const initialPlugins = plugins.map(
         (plugin): SavablePlugin => ({
             ...plugin,
@@ -19,18 +17,18 @@ export default function Index({
     );
 
     const [pluginsState, dispatch] = useReducer(pluginReducer, initialPlugins);
+    const page = usePage();
+
     return (
         <SiteLayout
-            title="Home"
+            title="Search Results"
             auth={auth}
             plugins={pluginsState}
             dispatch={dispatch}
         >
-            <div className="px-4">
-                <Banner />
-                <PopularTags tags={tags} />
-            </div>
-            <PluginCardSection />
+            <PluginCardSection
+                heading={`Search results for '${page.url.slice(17)}'`}
+            />
         </SiteLayout>
     );
 }

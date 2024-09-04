@@ -26,8 +26,9 @@ export default function Tag({
     return (
         <li>
             <Link
-                href={`/tags/${tag.name}`}
-                className={`${sizeClasses} ${background} text-gray-900 dark:text-gray-300 ring-1 ring-inset ring-gray-400 dark:ring-gray-600 hover:shadow-sm hover:shadow-green-400 hover:ring-1 hover:ring-inset hover:ring-blue-400/60 font-bold focus:ring-2 focus:ring-inset focus:ring-green-600 focus:outline-0`}>
+                href={`/plugin/tag/${tag.name}`}
+                className={`${sizeClasses} ${background} text-gray-900 dark:text-gray-300 ring-1 ring-inset ring-gray-400 dark:ring-gray-600 hover:shadow-sm hover:shadow-green-400 hover:ring-1 hover:ring-inset hover:ring-blue-400/60 font-bold focus:ring-2 focus:ring-inset focus:ring-green-600 focus:outline-0`}
+            >
                 {tag.name}
             </Link>
         </li>
