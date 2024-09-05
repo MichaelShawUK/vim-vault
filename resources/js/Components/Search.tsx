@@ -6,11 +6,6 @@ import DownArrow from '@/SVG/DownArrow';
 
 export default function Search() {
     const inputRef = useRef<HTMLInputElement>(null);
-    const [query, setQuery] = useState('');
-    const [searchName, setSearchName] = useState(true);
-    const [searchTag, setSearchTag] = useState(true);
-    const [searchDescription, setSearchDescription] = useState(true);
-    const [searchOwner, setSearchOwner] = useState(true);
     const [hideCategories, setHideCategories] = useState(true);
 
     // TODO: Display error message when no category selected
@@ -122,6 +117,7 @@ export default function Search() {
                     <button
                         type="button"
                         onClick={() => setHideCategories(false)}
+                        // WARN: Red error ring displayed for any error in error.query field
                         className={
                             errors.query
                                 ? 'ring-2 ring-red-500 rounded-full'
@@ -131,7 +127,7 @@ export default function Search() {
                         <DownArrow />
                     </button>
                 ) : (
-                    <>
+                    <div className="animate-fadeIn w-full text-center">
                         <h4 className="text-center mb-2">
                             Search in these categories
                         </h4>
@@ -163,7 +159,7 @@ export default function Search() {
                         >
                             <UpArrow />
                         </button>
-                    </>
+                    </div>
                 )}
             </div>
         </form>

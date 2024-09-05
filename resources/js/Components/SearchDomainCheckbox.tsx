@@ -16,7 +16,7 @@ export default function SearchDomainCheckbox({
                 className={`text-xs cursor-pointer font-bold uppercase py-1 px-1 rounded ring-inset dark:ring-white/20 ring-gray-400 hover:ring-1 ${checked ? 'bg-gradient-to-br from-blue-700 to-green-600 text-white shadow shadow-gray-600 hover:text-gray-300 dark:ring-1' : ''}`}
                 tabIndex={0}
                 onKeyDown={(e) => {
-                    if (e.code === 'Enter' || e.code === 'Space') {
+                    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
                         toggle((previous) => !previous);
                     }
                 }}
