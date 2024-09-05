@@ -123,6 +123,10 @@ Route::get('/plugin/search', function (Request $request) {
     return Inertia::render('Plugin/Search', ['plugins' => $plugins->flatten()->unique('id')->values()->all()]);
 });
 
+Route::post('/plugin/search', function (Request $request) {
+    dd($request);
+});
+
 //NOTE: Dashboard is not used
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
