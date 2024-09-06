@@ -6,7 +6,7 @@ export default function DownArrow() {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="size-6 text-gray-500 hover:text-black dark:ring-gray-600 dark:hover:text-white"
+            className="size-6 text-gray-400 hover:text-black dark:ring-gray-600 dark:hover:text-white"
         >
             <path
                 strokeLinecap="round"

@@ -128,8 +128,8 @@ export default function Search() {
                     </button>
                 ) : (
                     <div className="animate-fadeIn w-full text-center">
-                        <h4 className="text-center mb-2">
-                            Search in these categories
+                        <h4 className="text-center mb-2 uppercase text-xs font-bold">
+                            Search categories
                         </h4>
                         <ul className="flex justify-between w-full mb-3">
                             <SearchDomainCheckbox

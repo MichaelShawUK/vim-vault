@@ -40,7 +40,7 @@ export default function SiteLayout({
                             className={`min-h-screen ${theme} transition-colors duration-500 bg-white dark:bg-gray-900 dark:text-white selection:bg-yellow-400 selection:text-black`}
                         >
                             <Head title={title} />
-                            <header className="max-w-6xl mx-auto px-3 pt-7">
+                            <header className="max-w-6xl mx-auto px-8 pt-7">
                                 <div className="flex items-center justify-between mb-8">
                                     <Link
                                         href="/"
