@@ -59,10 +59,9 @@ Route::get('/author/{author}', function ($author) {
     return Inertia::render('Author', ['owner' => $owner]);
 });
 
-// TODO: Limit number of tags for popular tags section
 Route::get('/', function () {
     $plugins = Plugin::orderBy('stargazers_count', 'desc')->get();
-    $tags = Tag::orderBy('hits', 'desc')->get();
+    $tags = Tag::orderBy('hits', 'desc')->limit(12)->get();
     return Inertia::render('Plugin/Index', ['plugins' => $plugins, 'tags' => $tags]);
 });
 

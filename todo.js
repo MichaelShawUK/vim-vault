@@ -7,3 +7,5 @@
 // 7? Add query string to url thats allows sorting of plugin index
 // 8. Limit amount of tags displayed under popular tags section
 // 9. Make ring/outline consistent across site
+// 10. Paginate result set
+// 11. Set up endpoints for sort requests
