@@ -33,12 +33,12 @@ use Laravel\Socialite\Facades\Socialite;
 //         'plugins' => $plugins,
 //         'saved' => $saved
 //     ]);
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
+// return Inertia::render('Welcome', [
+//     'canLogin' => Route::has('login'),
+//     'canRegister' => Route::has('register'),
+//     'laravelVersion' => Application::VERSION,
+//     'phpVersion' => PHP_VERSION,
+// ]);
 // });
 
 //TODO: web file todo
@@ -63,6 +63,11 @@ Route::get('/', function () {
     $plugins = Plugin::orderBy('stargazers_count', 'desc')->get();
     $tags = Tag::orderBy('hits', 'desc')->limit(12)->get();
     return Inertia::render('Plugin/Index', ['plugins' => $plugins, 'tags' => $tags]);
+});
+
+Route::get('/plugin/sort={category}', function ($category) {
+    $plugins = Plugin::orderBy($category)->get();
+    return Inertia::render('Plugin/Index', ['plugins' => $plugins, 'tags' => []]);
 });
 
 Route::get('/plugin/add', [PluginController::class, 'create'])->name('plugin.add');
@@ -107,13 +112,13 @@ Route::get('/plugin/search', function (Request $request) {
     $query = $request->input('q');
     $plugins = Plugin::query()->where('name', 'LIKE', "%$query%")->get();
     $tagMatch = Tag::query()->where('name', 'LIKE', "%$query%")->get();
-    foreach($tagMatch as $tag) {
+    foreach ($tagMatch as $tag) {
         $plugins->push($tag->plugins);
     };
     $desc = Plugin::query()->where('description', 'LIKE', "%$query%")->get();
     $plugins->push($desc);
     $owner = Author::query()->where('login', 'LIKE', "%$query%")->get();
-    foreach($owner as $author) {
+    foreach ($owner as $author) {
         $plugins->push($author->plugins);
     }
     // dd($owner);
@@ -136,7 +141,6 @@ Route::get('/test', function () {
     $plugin = Plugin::query()->where('name', 'vim-surround')->first();
     if ($plugin) $plugin->delete();
     return Inertia::render('PluginCreate');
-
 });
 
 //HACK: Hello page not needed
@@ -157,7 +161,8 @@ Route::get('/auth/redirect', function () {
 Route::get('/auth/callback', function () {
     $githubUser = Socialite::driver('github')->user();
 
-    $user = User::query()->updateOrCreate([
+    $user = User::query()->updateOrCreate(
+        [
             'github_id' => $githubUser->getId(),
         ],
         [
@@ -167,7 +172,8 @@ Route::get('/auth/callback', function () {
             'email' => $githubUser->getEmail(),
             'github_token' => $githubUser->token,
             'github_refresh_token' => $githubUser->refreshToken,
-        ]);
+        ]
+    );
 
     Auth::login($user, true);
 
@@ -180,4 +186,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

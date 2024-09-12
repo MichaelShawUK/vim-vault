@@ -8,10 +8,6 @@ export default function Search() {
     const inputRef = useRef<HTMLInputElement>(null);
     const [hideCategories, setHideCategories] = useState(true);
 
-    // TODO: Display error message when no category selected
-    //       Use 1 button to toggle category section
-    //       Toggle display with CSS
-
     const { data, setData, post, errors, setError, clearErrors } = useForm({
         query: '',
         searchName: true,
