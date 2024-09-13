@@ -64,7 +64,6 @@ export default function Search() {
         if (inputRef.current) inputRef.current.focus();
     }
 
-    // TODO: Move form onClick handler to child div
     return (
         <form
             className="col-span-full mx-auto pt-6 relative pb-28"

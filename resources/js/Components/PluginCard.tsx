@@ -3,8 +3,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { pluginAction, SavablePlugin, User } from '@/types';
 import Tag from './Tag';
 import Star from '@/SVG/Star';
-import NewTab from '@/SVG/NewTab';
 import Bookmark from '@/SVG/Bookmark';
+import GithubIcon from '@/SVG/GithubIcon';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -46,11 +46,11 @@ export default function PluginCard({
                     <h3 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-0">
                         <a
                             href={plugin.html_url}
-                            className="flex items-center gap-1 justify-center hover:underline"
+                            className="flex items-center gap-2 justify-center hover:underline"
                             target="_blank"
                         >
                             {plugin.name}
-                            <NewTab />
+                            <GithubIcon size={'22'} />
                         </a>
                     </h3>
                     <h5 className="dark:text-gray-400 text-gray-600">

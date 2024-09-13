@@ -107,7 +107,6 @@ Route::get('/plugin/owner/{owner}', function (string $owner) {
     return Inertia::render('Plugin/Owner', ['plugins' => $author->plugins]);
 });
 
-// TODO: Combine search domains in order of name, tag, description, owner
 Route::get('/plugin/search', function (Request $request) {
     $query = $request->input('q');
     $plugins = Plugin::query()->where('name', 'LIKE', "%$query%")->get();
