@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@heroicons/react": "^2.1.5",
-        "dayjs": "^1.11.12"
+        "dayjs": "^1.11.12",
+        "highlight.js": "^11.10.0"
     }
 }

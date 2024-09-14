@@ -142,6 +142,11 @@ Route::get('/test', function () {
     return Inertia::render('PluginCreate');
 });
 
+// TEST:
+Route::get('/comment', function () {
+    return Inertia::render('Plugin/Show');
+});
+
 //HACK: Hello page not needed
 Route::get('/hello', function () {
     return Inertia::render('Hello');
