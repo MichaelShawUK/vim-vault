@@ -127,7 +127,27 @@ Route::get('/plugin/search', function (Request $request) {
 });
 
 Route::post('/plugin/search', function (Request $request) {
-    dd($request);
+    ['query' => $query, 'searchName' => $searchName, 'searchTag' => $searchTag, 'searchDescription' => $searchDescription, 'searchOwner' => $searchOwner] = $request->input();
+    $plugins = collect();
+    if ($searchName) {
+        $plugins->push(Plugin::query()->where('name', 'LIKE', "%$query%")->get());
+    }
+    if ($searchTag) {
+        $tagMatch = Tag::query()->where('name', 'LIKE', "%$query%")->get();
+        foreach ($tagMatch as $tag) {
+            $plugins->push($tag->plugins);
+        };
+    }
+    if ($searchDescription) {
+        $plugins->push(Plugin::query()->where('description', 'LIKE', "%$query%")->get());
+    }
+    if ($searchOwner) {
+        $owner = Author::query()->where('login', 'LIKE', "%$query%")->get();
+        foreach ($owner as $author) {
+            $plugins->push($author->plugins);
+        }
+    }
+    return Inertia::render('Plugin/Search', ['plugins' => $plugins->flatten()->unique('id')->values()->all()]);
 });
 
 //NOTE: Dashboard is not used

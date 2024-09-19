@@ -17,6 +17,9 @@ export default function Search({
     );
 
     const [pluginsState, dispatch] = useReducer(pluginReducer, initialPlugins);
+    // TODO: Pass search term to heading prop
+    // TODO: Remember serach categories state after submitting search query
+    // FIX:  Unable to make new search on search results page
     const page = usePage();
 
     return (
