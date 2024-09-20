@@ -1,20 +1,24 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useContext, useEffect, useRef, useState } from 'react';
 import { router, useForm } from '@inertiajs/react';
 import SearchDomainCheckbox from './SearchDomainCheckbox';
 import UpArrow from '@/SVG/UpArrow';
 import DownArrow from '@/SVG/DownArrow';
+import { SearchData } from '@/types';
+import { SearchContext } from '@/Context/SearchContext';
 
-export default function Search() {
+export default function Search({
+    onSearch,
+}: {
+    onSearch: (updatedData: SearchData) => void;
+}) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [hideCategories, setHideCategories] = useState(true);
 
-    const { data, setData, post, errors, setError, clearErrors } = useForm({
-        query: '',
-        searchName: true,
-        searchTag: true,
-        searchDescription: true,
-        searchOwner: true,
-    });
+    const searchData = useContext(SearchContext);
+    console.log(searchData);
+
+    const { data, setData, post, errors, setError, clearErrors } =
+        useForm(searchData);
 
     const toggleName = () =>
         setData((data) => ({ ...data, searchName: !data.searchName }));
@@ -45,6 +49,8 @@ export default function Search() {
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
+        console.log('Posting data to /plugin/search');
+        console.log('QUERY: ', data.query);
         if (
             !data.searchName &&
             !data.searchTag &&
@@ -56,8 +62,21 @@ export default function Search() {
         } else {
             clearErrors('query');
         }
-        post('/plugin/search');
-        // router.get('/plugin/search', { q: query });
+        // post('/plugin/search');
+        // onSearch({
+        //     query: data.query,
+        //     searchName: data.searchName,
+        //     searchTag: data.searchTag,
+        //     searchDescription: data.searchDescription,
+        //     searchOwner: data.searchOwner,
+        // });
+        router.get('/plugin/search', {
+            query: data.query,
+            names: data.searchName,
+            tags: data.searchTag,
+            desc: data.searchDescription,
+            owner: data.searchOwner,
+        });
     }
 
     function focusInput() {

@@ -6,7 +6,9 @@ import {
     PluginsContext,
     PluginsDispatchContext,
 } from '@/Context/PluginsContext';
+import { SearchContext } from '@/Context/SearchContext';
 import ThemeContext from '@/Context/ThemeContext';
+import useSearch from '@/hooks/useSearch';
 import useTheme from '@/hooks/useTheme';
 import Logo from '@/SVG/Logo';
 import { pluginAction, SavablePlugin, User } from '@/types';
@@ -31,40 +33,43 @@ export default function SiteLayout({
     dispatch,
 }: PropsWithChildren<Props>) {
     const { theme, toggleTheme } = useTheme();
+    const { searchData, updateSearchData } = useSearch();
     return (
-        <PluginsDispatchContext.Provider value={dispatch}>
-            <AuthenticatedUserContext.Provider value={auth.user}>
-                <ThemeContext.Provider value={theme}>
-                    <PluginsContext.Provider value={plugins}>
-                        <div
-                            className={`min-h-screen ${theme} transition-colors duration-500 bg-white dark:bg-gray-900 dark:text-white selection:bg-yellow-400 selection:text-black`}
-                        >
-                            <Head title={title} />
-                            <header className="max-w-6xl mx-auto px-8 pt-7">
-                                <div className="flex items-center justify-between mb-8">
-                                    <Link
-                                        href="/"
-                                        className="w-fit"
-                                    >
-                                        <Logo />
-                                    </Link>
-                                    <div className="flex items-center gap-x-4 divide-gray-200 dark:divide-gray-700 divide-x-2">
-                                        <ThemeSwitch toggle={toggleTheme} />
-                                        <HeaderActions user={auth.user} />
+        <SearchContext.Provider value={searchData}>
+            <PluginsDispatchContext.Provider value={dispatch}>
+                <AuthenticatedUserContext.Provider value={auth.user}>
+                    <ThemeContext.Provider value={theme}>
+                        <PluginsContext.Provider value={plugins}>
+                            <div
+                                className={`min-h-screen ${theme} transition-colors duration-500 bg-white dark:bg-gray-900 dark:text-white selection:bg-yellow-400 selection:text-black`}
+                            >
+                                <Head title={title} />
+                                <header className="max-w-6xl mx-auto px-8 pt-7">
+                                    <div className="flex items-center justify-between mb-8">
+                                        <Link
+                                            href="/"
+                                            className="w-fit"
+                                        >
+                                            <Logo />
+                                        </Link>
+                                        <div className="flex items-center gap-x-4 divide-gray-200 dark:divide-gray-700 divide-x-2">
+                                            <ThemeSwitch toggle={toggleTheme} />
+                                            <HeaderActions user={auth.user} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="flex justify-center">
-                                    <Search />
-                                </div>
-                            </header>
+                                    <div className="flex justify-center">
+                                        <Search onSearch={updateSearchData} />
+                                    </div>
+                                </header>
 
-                            <main className="max-w-4xl mx-auto text-center sm:px-4 ">
-                                {children}
-                            </main>
-                        </div>
-                    </PluginsContext.Provider>
-                </ThemeContext.Provider>
-            </AuthenticatedUserContext.Provider>
-        </PluginsDispatchContext.Provider>
+                                <main className="max-w-4xl mx-auto text-center sm:px-4 ">
+                                    {children}
+                                </main>
+                            </div>
+                        </PluginsContext.Provider>
+                    </ThemeContext.Provider>
+                </AuthenticatedUserContext.Provider>
+            </PluginsDispatchContext.Provider>
+        </SearchContext.Provider>
     );
 }

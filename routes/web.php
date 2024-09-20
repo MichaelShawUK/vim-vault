@@ -108,22 +108,36 @@ Route::get('/plugin/owner/{owner}', function (string $owner) {
 });
 
 Route::get('/plugin/search', function (Request $request) {
-    $query = $request->input('q');
-    $plugins = Plugin::query()->where('name', 'LIKE', "%$query%")->get();
-    $tagMatch = Tag::query()->where('name', 'LIKE', "%$query%")->get();
-    foreach ($tagMatch as $tag) {
-        $plugins->push($tag->plugins);
-    };
-    $desc = Plugin::query()->where('description', 'LIKE', "%$query%")->get();
-    $plugins->push($desc);
-    $owner = Author::query()->where('login', 'LIKE', "%$query%")->get();
-    foreach ($owner as $author) {
-        $plugins->push($author->plugins);
-    }
-    // dd($owner);
-    // dd($plugins->flatten()->unique('id')->values()->all());
 
-    return Inertia::render('Plugin/Search', ['plugins' => $plugins->flatten()->unique('id')->values()->all()]);
+    ['query' => $query, 'names' => $searchName, 'tags' => $searchTag, 'desc' => $searchDescription, 'owner' => $searchOwner] = $request->input();
+    $plugins = collect();
+    if ($searchName === 'true') {
+        $plugins->push(Plugin::query()->where('name', 'LIKE', "%$query%")->get());
+    }
+    if ($searchTag === 'true') {
+        $tagMatch = Tag::query()->where('name', 'LIKE', "%$query%")->get();
+        foreach ($tagMatch as $tag) {
+            $plugins->push($tag->plugins);
+        };
+    }
+    if ($searchDescription === 'true') {
+        $plugins->push(Plugin::query()->where('description', 'LIKE', "%$query%")->get());
+    }
+    if ($searchOwner === 'true') {
+        $owner = Author::query()->where('login', 'LIKE', "%$query%")->get();
+        foreach ($owner as $author) {
+            $plugins->push($author->plugins);
+        }
+    }
+    $searchData = [
+        'query' => $query,
+        'searchName' => $searchName === 'true' ? (bool) true : (bool) false,
+        'searchTag' => $searchTag === 'true' ? (bool) true : (bool) false,
+        'searchDescription' => $searchDescription === 'true' ? (bool) true : (bool) false,
+        'searchOwner' => $searchOwner === 'true' ? (bool) true : (bool) false,
+    ];
+
+    return Inertia::render('Plugin/Search', ['plugins' => $plugins->flatten()->unique('id')->values()->all(), 'query' => $query, 'searchData' => $searchData]);
 });
 
 Route::post('/plugin/search', function (Request $request) {
