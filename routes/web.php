@@ -70,7 +70,7 @@ Route::get('/plugin/sort={category}', function ($category) {
     return Inertia::render('Plugin/Index', ['plugins' => $plugins, 'tags' => []]);
 });
 
-Route::get('/plugin/add', [PluginController::class, 'create'])->name('plugin.add');
+Route::get('/plugin/add', [PluginController::class, 'create'])->middleware('auth')->name('plugin.add');
 Route::post('/plugin/confirm', [PluginController::class, 'store']);
 Route::post('/plugin/destroy/{id}', [PluginController::class, 'destroy']);
 Route::post('/plugin/reset/{id}', [PluginController::class, 'reset']);
