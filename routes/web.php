@@ -137,7 +137,7 @@ Route::get('/plugin/search', function (Request $request) {
         'searchOwner' => $searchOwner === 'true' ? (bool) true : (bool) false,
     ];
 
-    return Inertia::render('Plugin/Search', ['plugins' => $plugins->flatten()->unique('id')->values()->all(), 'query' => $query, 'searchData' => $searchData]);
+    return Inertia::render('Plugin/Search', ['plugins' => $plugins->flatten()->unique('id')->sortByDesc('stargazers_count')->values()->all(), 'query' => $query, 'searchData' => $searchData]);
 });
 
 Route::post('/plugin/search', function (Request $request) {
