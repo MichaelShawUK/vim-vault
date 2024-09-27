@@ -94,16 +94,14 @@ Route::get('/plugin/saved', function () {
 
 Route::get('/plugin/tag/{tag}', function (string $tag) {
     $record = Tag::query()->where('name', $tag)->first();
-    // TODO: Redirect user if no matching tag is found in database
-    if (!$record) dd("Failed to locate tag");
+    if (!$record) return Inertia::render('NoMatch');
     $record->increment('hits');
     return Inertia::render('Plugin/Tagged', ['plugins' => $record->plugins]);
 });
 
 Route::get('/plugin/owner/{owner}', function (string $owner) {
     $author = Author::query()->where('login', $owner)->first();
-    // TODO: Redirect if no matching owner is found in database
-    if (!$author) dd('Failed to locate owner');
+    if (!$author) return Inertia::render('NoMatch');
     return Inertia::render('Plugin/Owner', ['plugins' => $author->plugins]);
 });
 
