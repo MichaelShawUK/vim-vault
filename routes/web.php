@@ -179,6 +179,10 @@ Route::get('/comment', function () {
     return Inertia::render('Plugin/Show');
 });
 
+Route::post('/comment', function (Request $request) {
+    dd($request);
+});
+
 //HACK: Hello page not needed
 Route::get('/hello', function () {
     return Inertia::render('Hello');
