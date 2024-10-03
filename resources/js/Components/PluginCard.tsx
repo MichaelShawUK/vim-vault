@@ -114,12 +114,15 @@ export default function PluginCard({
                         ))}
                     </ul>
                 )}
-                <p className="flex gap-3 bg-gradient-to-br from-blue-700 to-green-600 text-white w-max ml-auto px-8 py-1 rounded-tl sm:rounded-l font-bold">
-                    {new Intl.NumberFormat('en-GB', {
-                        notation: 'compact',
-                    }).format(plugin.stargazers_count)}{' '}
-                    <Star />
-                </p>
+                <div className="ml-auto flex items-center gap-3 justify-between">
+                    <p>comments</p>
+                    <p className="flex gap-3 bg-gradient-to-br from-blue-700 to-green-600 text-white w-max px-8 py-1 rounded-tl sm:rounded-l font-bold">
+                        {new Intl.NumberFormat('en-GB', {
+                            notation: 'compact',
+                        }).format(plugin.stargazers_count)}{' '}
+                        <Star />
+                    </p>
+                </div>
             </div>
             {!!plugin.archived && (
                 <p className="bg-[#ed8a19] text-black font-bold rounded-b-lg">
