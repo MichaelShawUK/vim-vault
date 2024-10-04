@@ -7,6 +7,9 @@ import Bookmark from '@/SVG/Bookmark';
 import GithubIcon from '@/SVG/GithubIcon';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
+import Comments from '@/SVG/Comments';
+import EmptyComment from '@/SVG/EmptyComment';
+import CommentIcon from './CommentIcon';
 
 interface Props {
     plugin: SavablePlugin;
@@ -114,8 +117,11 @@ export default function PluginCard({
                         ))}
                     </ul>
                 )}
-                <div className="ml-auto flex items-center gap-3 justify-between">
-                    <p>comments</p>
+                <div className="ml-auto flex items-center gap-3 justify-end">
+                    <CommentIcon
+                        commentCount={3}
+                        pluginSlug="test"
+                    />
                     <p className="flex gap-3 bg-gradient-to-br from-blue-700 to-green-600 text-white w-max px-8 py-1 rounded-tl sm:rounded-l font-bold">
                         {new Intl.NumberFormat('en-GB', {
                             notation: 'compact',
