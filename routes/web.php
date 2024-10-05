@@ -170,6 +170,7 @@ Route::get('/dashboard', function () {
 //TEST:
 Route::get('/test', function () {
     $plugin = Plugin::query()->where('name', 'vim-surround')->first();
+    dd($plugin->full_name);
     if ($plugin) $plugin->delete();
     return Inertia::render('PluginCreate');
 });

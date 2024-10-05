@@ -26,6 +26,13 @@ class Plugin extends Model
         );
     }
 
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Str::of($value)->replace('/', ' ')->replace('.', ' ')->slug()
+        );
+    }
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
