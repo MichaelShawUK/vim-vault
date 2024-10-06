@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('full_name');
+            $table->string('slug')->default('error');
             $table->foreignIdFor(Author::class);
             $table->string('description', length: 1000)->nullable();
             $table->integer('stargazers_count');

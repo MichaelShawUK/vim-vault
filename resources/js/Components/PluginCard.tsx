@@ -120,7 +120,7 @@ export default function PluginCard({
                 <div className="ml-auto flex items-center gap-3 justify-end">
                     <CommentIcon
                         commentCount={3}
-                        pluginSlug={plugin.full_name}
+                        pluginSlug={plugin.slug}
                     />
                     <p className="flex gap-3 bg-gradient-to-br from-blue-700 to-green-600 text-white w-max px-8 py-1 rounded-tl sm:rounded-l font-bold">
                         {new Intl.NumberFormat('en-GB', {

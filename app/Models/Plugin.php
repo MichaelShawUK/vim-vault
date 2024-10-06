@@ -29,8 +29,11 @@ class Plugin extends Model
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Str::of($value)->replace('/', ' ')->replace('.', ' ')->slug()
+            set: fn (string $value) => ['full_name' => $value, 'slug' => Str::of($value)->replace('/', ' ')->replace('.', ' ')->slug()]
         );
+        // return Attribute::make(
+        //     get: fn (string $value) => Str::of($value)->replace('/', ' ')->replace('.', ' ')->slug()
+        // );
     }
 
     public function author(): BelongsTo

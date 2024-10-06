@@ -39,6 +39,7 @@ export interface Plugin {
     id: number
     name: string
     full_name: string
+    slug: string
     author_id: number
     description: string
     stargazers_count: number

@@ -162,6 +162,10 @@ Route::post('/plugin/search', function (Request $request) {
     return Inertia::render('Plugin/Search', ['plugins' => $plugins->flatten()->unique('id')->values()->all()]);
 });
 
+Route::get('/plugin/{plugin:slug}', function (Plugin $plugin) {
+    dd($plugin);
+});
+
 //NOTE: Dashboard is not used
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
