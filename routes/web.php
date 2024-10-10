@@ -163,7 +163,7 @@ Route::post('/plugin/search', function (Request $request) {
 });
 
 Route::get('/plugin/{plugin:slug}', function (Plugin $plugin) {
-    dd($plugin);
+    return Inertia::render('Plugin/Show', ['plugins' => [$plugin]]);
 });
 
 //NOTE: Dashboard is not used
