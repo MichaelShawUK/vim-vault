@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Plugin;
 use App\Models\User;
 use App\Models\Author;
+use App\Models\Comment;
 use App\Models\Tag;
 use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -25,6 +26,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        User::factory(3)->create();
 
         // $response = Http::withToken(env('GITHUB_TOKEN'))->get('https://api.github.com/repos/stevearc/conform.nvim')->collect();
         // $filtered = $response->only(['name', 'full_name', 'description', 'stargazers_count', 'html_url', 'url', 'archived', 'created_at', 'updated_at'])->toArray();
@@ -58,6 +61,8 @@ class DatabaseSeeder extends Seeder
         Tag::query()->create(['name' => 'surround']);
         Tag::query()->create(['name' => 'treesitter']);
         Tag::query()->create(['name' => 'snippet']);
+
+        Comment::factory(6)->create();
     }
 
     public function addPlugin($url, $tags = [])
@@ -86,10 +91,9 @@ class DatabaseSeeder extends Seeder
         $plugin->uploaded_at = Carbon::now();
         $plugin->save();
 
-        foreach($tags as $tagName) {
+        foreach ($tags as $tagName) {
             $tag = Tag::query()->firstOrCreate(['name' => $tagName]);
-        $plugin->tags()->attach($tag->id);
-
+            $plugin->tags()->attach($tag->id);
         }
     }
 }
