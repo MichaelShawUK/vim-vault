@@ -18,7 +18,7 @@ class Plugin extends Model
 
     protected $guarded = [];
 
-    protected $with = ['tags', 'author'];
+    protected $with = ['tags', 'author', 'comments'];
 
     protected function description(): Attribute
     {
