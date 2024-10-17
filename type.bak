@@ -1,3 +1,17 @@
+export interface User {
+    id: number;
+    name: string;
+    email: string;
+    email_verified_at: string;
+}
+
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+    auth: {
+        user: User;
+        saved: number[]
+    },
+};
+
 export interface Author {
     // columns
     id: number
@@ -10,17 +24,14 @@ export interface Author {
     plugins: Plugin[]
 }
 
-export interface Comment {
+export interface Category {
     // columns
     id: number
-    comment: string
-    plugin_id: number
-    user_id: number
+    name: string
     created_at: string | null
     updated_at: string | null
     // relations
-    plugin: Plugin
-    user: User
+    plugins: Plugin[]
 }
 
 export interface Plugin {
@@ -35,14 +46,17 @@ export interface Plugin {
     html_url: string
     url: string
     archived: boolean
+    category_id: number
     created_at: string
     updated_at: string
-    uploaded_at: string
     // relations
     author: Author
+    category: Category
     tags: Tag[]
-    saved_by: User[]
-    comments: Comment[]
+}
+
+export interface SavablePlugin extends Plugin {
+    saved: boolean
 }
 
 export interface Tag {
@@ -54,33 +68,6 @@ export interface Tag {
     updated_at: string | null
     // relations
     plugins: Plugin[]
-}
-
-export interface User {
-    // columns
-    id: number
-    name: string
-    nickname: string | null
-    email: string
-    email_verified_at: string | null
-    avatar_url: string | null
-    github_id: string | null
-    created_at: string | null
-    updated_at: string | null
-    // relations
-    saved_plugins: Plugin[]
-    comments: Comment[]
-}
-
-export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-    auth: {
-        user: User;
-        saved: number[]
-    },
-};
-
-export interface SavablePlugin extends Plugin {
-    saved: boolean
 }
 
 interface SearchData {
