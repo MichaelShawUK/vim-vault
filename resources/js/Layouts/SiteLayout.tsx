@@ -8,7 +8,7 @@ import {
 } from '@/Context/PluginsContext';
 import ThemeContext from '@/Context/ThemeContext';
 import useTheme from '@/hooks/useTheme';
-import Logo from '@/SVG/Logo';
+import Icon from '@/SVG/Icon';
 import { pluginAction, SavablePlugin, SearchData, User } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
@@ -56,7 +56,7 @@ export default function SiteLayout({
                                         href="/"
                                         className="w-fit"
                                     >
-                                        <Logo />
+                                        <Icon />
                                     </Link>
                                     <div className="flex items-center gap-x-4 divide-gray-200 dark:divide-gray-700 divide-x-2">
                                         <ThemeSwitch toggle={toggleTheme} />
