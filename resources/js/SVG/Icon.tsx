@@ -9,6 +9,7 @@ export default function Icon() {
             width="60px"
             height="60px"
             viewBox="0 0 606.216 606.217"
+            fillOpacity={0.3}
         >
             <defs>
                 <rect
@@ -17,6 +18,7 @@ export default function Icon() {
                     height="100%"
                     rx="100px"
                     ry="100px"
+                    fillOpacity={1}
                 />
                 <linearGradient
                     id="gradient"
