@@ -10,13 +10,14 @@ export default function Show({
     auth,
     plugins,
 }: PageProps<{ plugins: Plugin[] }>) {
-    console.log(plugins);
     const initialPlugins = plugins.map(
         (plugin): SavablePlugin => ({
             ...plugin,
             saved: auth.saved.includes(plugin.id),
         }),
     );
+
+    console.log(auth);
 
     const [pluginsState, dispatch] = useReducer(pluginReducer, initialPlugins);
 
@@ -28,9 +29,9 @@ export default function Show({
             dispatch={dispatch}
         >
             <PluginCardSection />
-            <div>
-                <CommentForm />
-                <PluginComment />
+            <div className="mt-14">
+                {auth.user && <CommentForm />}
+                {/* <PluginComment /> */}
             </div>
         </SiteLayout>
     );
