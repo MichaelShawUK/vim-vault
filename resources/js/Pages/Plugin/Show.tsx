@@ -30,7 +30,12 @@ export default function Show({
         >
             <PluginCardSection />
             <div className="mt-14">
-                {auth.user && <CommentForm />}
+                {auth.user && (
+                    <CommentForm
+                        userId={auth.user.id}
+                        pluginId={plugins[0].id}
+                    />
+                )}
                 {/* <PluginComment /> */}
             </div>
         </SiteLayout>

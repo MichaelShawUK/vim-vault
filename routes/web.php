@@ -3,6 +3,7 @@
 use App\Http\Controllers\PluginController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Author;
+use App\Models\Comment;
 use App\Models\Plugin;
 use App\Models\Tag;
 use App\Models\User;
@@ -185,6 +186,11 @@ Route::get('/comment', function () {
 });
 
 Route::post('/comment', function (Request $request) {
+    Comment::query()->create([
+        'comment' => $request->input('comment'),
+        'user_id' => $request->input('userId'),
+        'plugin_id' => $request->input('pluginId'),
+    ]);
     dd($request);
 });
 

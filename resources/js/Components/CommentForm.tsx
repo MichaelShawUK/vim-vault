@@ -3,12 +3,16 @@
 import { CodeBracketIcon } from '@heroicons/react/24/outline';
 import { useForm } from '@inertiajs/react';
 
-export default function CommentForm() {
+interface Props {
+    userId: number;
+    pluginId: number;
+}
+
+export default function CommentForm({ userId, pluginId }: Props) {
     const { data, setData, post, processing, errors } = useForm({
         comment: '',
-        snippet: '',
-        userId: null,
-        pluginId: null,
+        userId,
+        pluginId,
     });
 
     function submit(event: React.FormEvent<HTMLFormElement>) {
@@ -39,7 +43,7 @@ export default function CommentForm() {
                             name="comment"
                             rows={3}
                             placeholder="Add your comment..."
-                            className="p-2 rounded-t dark:bg-gray-800 dark:text-white block w-full resize-none border-0 border-b border-transparent p-0 pb-2 text-gray-900 placeholder:text-gray-400 focus:border-blue-700 focus:ring-0 sm:text-sm sm:leading-6"
+                            className="p-2 rounded-t dark:bg-gray-800 bg-gray-100 dark:text-white block w-full resize-none border-0 border-b border-transparent p-0 pb-2 text-gray-900 placeholder:text-gray-600 dark:placeholder:text-gray-300 focus:border-blue-700 focus:ring-0 sm:text-sm sm:leading-6"
                             value={data.comment}
                             onChange={(
                                 event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -66,8 +70,10 @@ export default function CommentForm() {
                         <div className="flex-shrink-0">
                             <button
                                 type="submit"
-                                className="inline-flex items-center rounded-md bg-gradient-to-br from-blue-700 to-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
-                                disabled={processing}
+                                className="inline-flex items-center rounded-md bg-gradient-to-br from-blue-700 to-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gradient-to-br hover:from-blue-600 hover:to-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700 disabled:to-gray-400 disabled:from-gray-400 disabled:text-gray-200 dark:disabled:to-gray-700 dark:disabled:from-gray-700 dark:disabled:text-gray-400 disabled:cursor-not-allowed"
+                                disabled={
+                                    processing || data.comment.trim() === ''
+                                }
                             >
                                 Post
                             </button>
