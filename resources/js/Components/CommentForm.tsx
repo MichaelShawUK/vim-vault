@@ -43,7 +43,7 @@ export default function CommentForm({ userId, pluginId }: Props) {
                             name="comment"
                             rows={3}
                             placeholder="Add your comment..."
-                            className="p-2 rounded-t dark:bg-gray-800 bg-gray-100 dark:text-white block w-full resize-none border-0 border-b border-transparent p-0 pb-2 text-gray-900 placeholder:text-gray-600 dark:placeholder:text-gray-300 focus:border-blue-700 focus:ring-0 sm:text-sm sm:leading-6"
+                            className="p-2 rounded-t dark:bg-gray-800 bg-gray-100 dark:text-white block w-full resize-none border-0 border-b pb-2 text-gray-900 placeholder:text-gray-600 dark:placeholder:text-gray-300 focus:border-blue-700 focus:ring-0 sm:text-sm sm:leading-6"
                             value={data.comment}
                             onChange={(
                                 event: React.ChangeEvent<HTMLTextAreaElement>,

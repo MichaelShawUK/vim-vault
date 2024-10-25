@@ -16,7 +16,7 @@ export default function Tag({
 
     switch (size) {
         case 'sm':
-            sizeClasses = 'px-2 py-1 rounded-md';
+            sizeClasses = 'px-3 font-bold text-sm py-1 rounded-md';
             break;
         default:
             sizeClasses =

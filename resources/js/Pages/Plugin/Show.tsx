@@ -1,5 +1,5 @@
-import PluginComment from '@/Components/PluginComment';
 import CommentForm from '@/Components/CommentForm';
+import CommentThread from '@/Components/CommentThread';
 import PluginCardSection from '@/Components/PluginCardSection';
 import SiteLayout from '@/Layouts/SiteLayout';
 import pluginReducer from '@/Reducers/plugins';
@@ -20,23 +20,25 @@ export default function Show({
     console.log(auth);
 
     const [pluginsState, dispatch] = useReducer(pluginReducer, initialPlugins);
+    const plugin = plugins[0];
 
     return (
         <SiteLayout
-            title={plugins[0].name}
+            title={plugin.name}
             auth={auth}
             plugins={pluginsState}
             dispatch={dispatch}
         >
             <PluginCardSection />
-            <div className="mt-14">
+            <div className="mt-14 space-y-14">
                 {auth.user && (
                     <CommentForm
                         userId={auth.user.id}
-                        pluginId={plugins[0].id}
+                        pluginId={plugin.id}
                     />
                 )}
                 {/* <PluginComment /> */}
+                <CommentThread comments={plugin.comments} />
             </div>
         </SiteLayout>
     );
